@@ -1,0 +1,24 @@
+{
+  "name": "mi-nuevo-proyecto",
+  "version": "1.0.0",
+  "description": "proyecto backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jumaco/mi-nuevo-proyecto.git"
+  },
+  "author": "Juan M Corral",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jumaco/mi-nuevo-proyecto/issues"
+  },
+  "homepage": "https://github.com/jumaco/mi-nuevo-proyecto#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "socket.io": "^4.3.1"
+  }
+}
