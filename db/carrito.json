@@ -1,0 +1,66 @@
+[
+  {
+    "timestamp": 1635304055275,
+    "producto": [
+      {
+        "id": 5,
+        "timestamp": 1635304055275,
+        "nombre": "Registro de conducir",
+        "descripcion": "Registros baratitos",
+        "código": 555,
+        "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+        "precio": 1200,
+        "stock": 3
+      }
+    ],
+    "id": 1
+  },
+  {
+    "timestamp": 1635304632594,
+    "producto": [
+      {
+        "id": 5,
+        "timestamp": 1635304632594,
+        "nombre": "Registro de conducir",
+        "descripcion": "Registros baratitos",
+        "código": 555,
+        "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+        "precio": 1200,
+        "stock": 3
+      }
+    ],
+    "id": 3
+  },
+  {
+    "timestamp": 1635304847615,
+    "producto": [
+      {
+        "id": 5,
+        "timestamp": 1635304847615,
+        "nombre": "Registro de conducir",
+        "descripcion": "Registros baratitos",
+        "código": 555,
+        "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+        "precio": 1200,
+        "cantidad": 3
+      }
+    ],
+    "id": 4
+  },
+  {
+    "timestamp": 1635304850430,
+    "producto": [
+      {
+        "id": 5,
+        "timestamp": 1635304850430,
+        "nombre": "Registro de conducir",
+        "descripcion": "Registros baratitos",
+        "código": 555,
+        "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+        "precio": 1200,
+        "cantidad": 3
+      }
+    ],
+    "id": 5
+  }
+]
