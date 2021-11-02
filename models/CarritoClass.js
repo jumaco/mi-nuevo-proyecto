@@ -81,18 +81,30 @@ class Carrito {
 		};
 	};
 	// ELIMINA DEL ARCHIVO EL CARRITO CON EL ID INGRESADO.
-	async deleteById(id) {
+	async deleteById(id, id_prod = 0) {
 		try {
 			const contenido = await this.read();
 			const arrayObtenido = JSON.parse(contenido);
-			let encontrado = false
+			let encontrado = false;
 			arrayObtenido.map((object) => {
 				if (object.id === id) {
 					encontrado = true
-					let indice = arrayObtenido.indexOf(object);
-					arrayObtenido.splice(indice, 1);
-				};
-			});
+					if (id_prod) {
+						console.log('Ingreso a producto del carrito');
+						object.productos.map((ele) => {
+							if (ele.id && ele.id === id_prod) {
+								console.log('Ingreso a borrar producto');
+								let eleIndice = object.productos.indexOf(ele);
+								object.productos.splice(eleIndice, 1);
+							}
+						})
+					} else {
+						console.log('Borrando carrito');
+						let indice = arrayObtenido.indexOf(object);
+						arrayObtenido.splice(indice, 1);
+					}
+				}
+			})
 			const arrayString = JSON.stringify(arrayObtenido, null, 2);
 			await fs.promises.writeFile(`./${this.file}`, arrayString);
 			return encontrado
