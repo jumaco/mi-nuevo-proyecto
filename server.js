@@ -25,7 +25,7 @@ const carrito = require('./routers/api/carritoApi');
 const PATH = '/';
 
 const callback = (request, response, next) => {
-   response.send({ mensaje: 'HOLA MUNDO! DIRIGETE A /api/productos O api/carrito' });
+   response.send({ mensaje: 'HOLA MUNDO! DIRIGETE A /api/productos O /api/carrito' });
 };
 
 app.get(PATH, callback);
@@ -34,7 +34,7 @@ app.get(PATH, callback);
 
 app.use('/api/productos', productos)
 
-app.use('api/carrito', carrito)
+app.use('/api/carrito', carrito)
 
 //-----FIN ROUTERS-----
 

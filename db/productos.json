@@ -25,5 +25,24 @@
     "precio": "87972,96",
     "stock": "320",
     "id": 3
+  },
+  {
+    "nombre": "Cocina Patrick",
+    "descripcion": "Diseño CP9750I gas natural 4 hornallas inoxidable 220V puerta con visor 54.72L",
+    "código": "38263798",
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_985911-MLA40417380036_012020-O.webp",
+    "precio": "52721,24",
+    "stock": "010",
+    "id": 4
+  },
+  {
+    "nombre": "Cocina Patrick",
+    "descripcion": "Diseño CP9750I gas natural 4 hornallas inoxidable 220V puerta con visor 54.72L",
+    "código": "38263798",
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_985911-MLA40417380036_012020-O.webp",
+    "precio": "52721,24",
+    "stock": "010",
+    "id": 5,
+    "timestamp": "1635832735732"
   }
 ]

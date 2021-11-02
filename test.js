@@ -19,15 +19,14 @@ const Carrito = require('./models/CarritoClass');
 //{ ID, TIMESTAMP(PRODUCTO), NOMBRE, DESCRIPCION, CÓDIGO, FOTO (URL), PRECIO, STOCK }
 //TIEMSTAMP GENERADO AL AGREGAR AL CARRITO
 class Producto {
-	constructor(timestamp, nombre, descripcion, código, fotoUrl, precio, cantidad) {
+	constructor(nombre, descripcion, código, fotoUrl, precio, stock) {
 		// this.id = id;
-		this.timestamp = timestamp;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.código = código;
 		this.fotoUrl = fotoUrl;
 		this.precio = precio;
-		this.cantidad = cantidad;
+		this.stock = stock;
 	}
 }
 
@@ -42,7 +41,6 @@ class Carro {
 const carrito = new Carrito('./db/carrito.json')
 
 const nuevoProducto = new Producto(
-	Date.now().toString(),
 	"Freezer horizontal Patrick",
 	"FHP420 blanco 383L 220V",
 	codeRandom.id(),

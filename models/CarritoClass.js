@@ -10,35 +10,42 @@ class Carrito {
 		return contenido;
 	}
 	// RECIBE UN CARRITO, LO GUARDA EN EL ARCHIVO, DEVUELVE EL ID ASIGNADO.
-	async save(object) {
+	async save(object = {}, id = 0) {
 		try {
 			const contenido = await this.read();
-			let addProducto = {
-				...object,
-				timestamp: Date.now().toString()
-			};
-			let array = []
-			let arrayProductos = []
+			let carro = {};
+			let array = [];
+			let arrayProductos = [];
 			if (contenido === '') {
-				id = 1,
-				timestamp = Date.now().toString();
-				productos = arrayProductos.push(addProducto);
-				arrayProductos.push(array);
+				carro.id = 1;
+				arrayProductos.push(object);
+				carro.timestamp = Date.now().toString();
+				carro.productos = arrayProductos;
+				array.push(carro);
 			} else {
 				const arrayObtenido = JSON.parse(contenido);
-				const existe = arrayObtenido.find((item => item.id === object.id))
-				if (existe) {
-					let indexObject = arrayObtenido.findIndex((item => item.id === object.id))
-					arrayObtenido[indexObject] = object
+				const existeCarro = arrayObtenido.find((item => item.id === id));
+				if (existeCarro) {
+					console.log('carro EXISTENTE');
+					let indexCarro = arrayObtenido.findIndex((item => item.id === id));
+					const existeProductoEnCarro = arrayObtenido[indexCarro].productos.find((item => item.id === object.id));
+					if (existeProductoEnCarro) {
+						console.log(existeProductoEnCarro);
+					} else {
+						arrayObtenido[indexCarro].productos.push(object);
+					}
 				} else {
-					object.id = arrayObtenido[arrayObtenido.length - 1].id + 1;
-					arrayObtenido.push(object);
+					carro.id = arrayObtenido[arrayObtenido.length - 1].id + 1;
+					arrayProductos.push(object);
+					carro.timestamp = Date.now().toString();
+					carro.productos = arrayProductos;
+					arrayObtenido.push(carro);
 				}
 				array = arrayObtenido;
 			}
 			const objectsString = JSON.stringify(array, null, 2);
 			await fs.promises.writeFile(`./${this.file}`, objectsString);
-			return object.id;
+			return carro.id;
 		} catch (error) {
 			console.log('error al ejecutar', { error })
 		}

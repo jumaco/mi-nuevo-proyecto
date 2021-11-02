@@ -30,8 +30,8 @@ router.get('/:id', async (req, res) => {
 // POST: '/' - Para incorporar productos al listado (disponible para administradores)
 // POST '/api/producto' -> RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO.
 router.post('/', async (req, res) => {
-	await contenedor.save(req.body)
-	res.send(req.body);
+	const productoId = await contenedor.save(req.body)
+	res.send({productoId});
 });
 
 // PUT: '/:id' - Actualiza un producto por su id (disponible para administradores)

@@ -16,6 +16,7 @@ class Producto {
 			let array = []
 			if (contenido === '') {
 				object.id = 1;
+				object.timestamp = Date.now().toString();
 				array.push(object);
 			} else {
 				const arrayObtenido = JSON.parse(contenido);
@@ -25,6 +26,7 @@ class Producto {
 					arrayObtenido[indexObject] = object
 				} else {
 					object.id = arrayObtenido[arrayObtenido.length - 1].id + 1;
+					object.timestamp = Date.now().toString();
 					arrayObtenido.push(object);
 				}
 				array = arrayObtenido;
