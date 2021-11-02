@@ -13,10 +13,17 @@ class Carrito {
 	async save(object) {
 		try {
 			const contenido = await this.read();
+			let addProducto = {
+				...object,
+				timestamp: Date.now().toString()
+			};
 			let array = []
+			let arrayProductos = []
 			if (contenido === '') {
-				object.id = 1;
-				array.push(object);
+				id = 1,
+				timestamp = Date.now().toString();
+				productos = arrayProductos.push(addProducto);
+				arrayProductos.push(array);
 			} else {
 				const arrayObtenido = JSON.parse(contenido);
 				const existe = arrayObtenido.find((item => item.id === object.id))

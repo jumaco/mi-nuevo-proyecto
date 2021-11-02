@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 //MÓDULOS DE DIRECCIONAMIENTO ROUTER
 
 const productos = require('./routers/api/productoApi');
-
+const carrito = require('./routers/api/carritoApi');
 
 // ENDPOINTS EXPRESS
 
@@ -25,7 +25,7 @@ const productos = require('./routers/api/productoApi');
 const PATH = '/';
 
 const callback = (request, response, next) => {
-   response.send({ mensaje: 'HOLA MUNDO! Dirigete a /form para usar EJS; /agregar para usar static' });
+   response.send({ mensaje: 'HOLA MUNDO! DIRIGETE A /api/productos O api/carrito' });
 };
 
 app.get(PATH, callback);
@@ -34,7 +34,7 @@ app.get(PATH, callback);
 
 app.use('/api/productos', productos)
 
-// app.use('api/carrito', carrito)
+app.use('api/carrito', carrito)
 
 //-----FIN ROUTERS-----
 

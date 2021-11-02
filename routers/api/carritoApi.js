@@ -3,21 +3,20 @@ const { Router } = express
 
 const router = new Router()
 
-const Producto = require('./ProductoClass');
-const contenedor = new Producto('./db/productos.json');
+const Carrito = require('../../models/CarritoClass');
+const carrito = new Carrito('./db/carrito.json');
 
 //---------ENDPOINTS---------
 
 //Crea un carrito y devuelve su id.
-
 // POST '/api/carrito' -> RECIBE Y AGREGA UN carrito, Y LO DEVUELVE CON SU ID ASIGNADO.
 router.post('/', async (req, res) => {
-	await contenedor.save(req.body)
+	const { product } = req.body
+	await carrito.save(product)
 	res.send(req.body);
 });
 
 //DELETE: '/:id' - Vacía un carrito y lo elimina.
-
 // DELETE '/api/carrito/:id' -> ELIMINA UN PRODUCTO SEGÚN SU ID.
 router.delete('/:id', async (req, res) => {
 	const productoDelete = await contenedor.deleteById(Number(req.params.id))
@@ -32,18 +31,17 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
-
-// GET: '/:id/productos' - Me permite listar todos los productos guardados en el carrito
-
-
-
-
-
+// GET: '/api/carrito/:id/productos' - Me permite listar todos los productos guardados en el carrito
 // GET '/api/carrito' -> DEVUELVE TODOS LOS carritos.
 router.get('/', async (req, res) => {
 	const productos = await contenedor.getAll();
 	res.json(productos);
 });
+
+
+
+
+
 
 // GET '/api/carrito/:id' -> DEVUELVE UN carrito SEGÚN SU ID.
 router.get('/:id', async (req, res) => {

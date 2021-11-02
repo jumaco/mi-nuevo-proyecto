@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jumaco/mi-nuevo-proyecto#readme",
   "dependencies": {
+    "anyid": "^1.0.7",
     "express": "^4.17.1"
   }
 }
