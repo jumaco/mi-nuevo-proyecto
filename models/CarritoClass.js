@@ -88,11 +88,13 @@ class Carrito {
 			let encontrado = false;
 			arrayObtenido.map((object) => {
 				if (object.id === id) {
-					encontrado = true
+					encontrado = true;
 					if (id_prod) {
 						console.log('Ingreso a producto del carrito');
+						encontrado = false;
 						object.productos.map((ele) => {
-							if (ele.id && ele.id === id_prod) {
+							if (ele.id === id_prod) {
+								encontrado = true;
 								console.log('Ingreso a borrar producto');
 								let eleIndice = object.productos.indexOf(ele);
 								object.productos.splice(eleIndice, 1);

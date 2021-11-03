@@ -5,11 +5,11 @@ const app = express()
 const router = new Router()
 
 router.get('/', (req, res) => {
-   res.send('get ok')
+	res.send('get ok')
 })
 
 router.post('/', (req, res) => {
-   res.send('post ok')
+	res.send('post ok')
 })
 
 app.use('/', router)

@@ -7,12 +7,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use((req, res, next) => {
-//    res.status(404).send({
-//       error: -2,
-//       descripcion: `ruta 'x' método 'y' no implementada`
+//    res.status(401).send({
+//       error: -1,
+//       descripcion: `ruta '${req.path}', método '${req.method}' no autorizada.`
 //    });
 // });
-
 
 //MÓDULOS DE DIRECCIONAMIENTO ROUTER
 
@@ -25,7 +24,7 @@ const carrito = require('./routers/api/carritoApi');
 const PATH = '/';
 
 const callback = (request, response, next) => {
-   response.send({ mensaje: 'HOLA MUNDO! DIRIGETE A /api/productos O /api/carrito' });
+	response.send({ mensaje: 'HOLA MUNDO! DIRIGETE A /api/productos O /api/carrito' });
 };
 
 app.get(PATH, callback);
@@ -38,11 +37,18 @@ app.use('/api/carrito', carrito)
 
 //-----FIN ROUTERS-----
 
+app.use((req, res, next) => {
+	res.status(404).send({
+		error: -2,
+		descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
+	});
+});
+
 // ENCIENDO EL SERVER
 const callbackInit = () => {
-   console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+	console.log(`Servidor corriendo en: http://localhost:${PORT}`);
 };
-app.listen(PORT, callbackInit);
+app.listen( process.env.PORT || PORT, callbackInit);
 
 // MANEJO DE ERRORES
 app.on("error", error => console.log(`Error en servidor ${error}`))

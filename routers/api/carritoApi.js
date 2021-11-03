@@ -55,7 +55,7 @@ router.post('/:id/productos', async (req, res) => {
 
 //DELETE: '/:id/productos/:id_prod' - ELIMINAR UN PRODUCTO DEL CARRITO POR SU ID DE CARRITO Y DE PRODUCTO
 router.delete('/:id/productos/:id_prod', async (req, res) => {
-	const ProductoDelCarroDelete = await carrito.deleteById(Number(req.params.id),Number(req.params.id_prod))
+	const ProductoDelCarroDelete = await carrito.deleteById(Number(req.params.id), Number(req.params.id_prod))
 	if (!ProductoDelCarroDelete) {
 		res.send({
 			error: 'producto no encontrado'

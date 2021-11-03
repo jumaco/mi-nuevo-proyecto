@@ -16,11 +16,11 @@ const io = new IOServer(httpServer)
 
 
 router.get('/', (req, res) => {
-   res.send('get ok')
+	res.send('get ok')
 })
 
 router.post('/', (req, res) => {
-   res.send('post ok')
+	res.send('post ok')
 })
 
 
