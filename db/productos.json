@@ -1,48 +1,58 @@
 [
-	{
-		"nombre": "Cocina Patrick",
-		"descripcion": "Diseño CP9750I gas natural 4 hornallas inoxidable 220V puerta con visor 54.72L",
-		"código": "38263798",
-		"fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_985911-MLA40417380036_012020-O.webp",
-		"precio": "52721,24",
-		"stock": "010",
-		"id": 1
-	},
-	{
-		"nombre": "Heladera Patrick",
-		"descripcion": "HPK136M00 black steel con freezer 300L 220V",
-		"código": "50867410",
-		"fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_836148-MLA47917810593_102021-O.webp",
-		"precio": "41278,36",
-		"stock": "738",
-		"id": 2
-	},
-	{
-		"nombre": "Freezer horizontal Patrick",
-		"descripcion": "FHP420 blanco 383L 220V",
-		"código": "92562272",
-		"fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_2X_711928-MLA41254319676_032020-V.webp",
-		"precio": "87972,96",
-		"stock": "320",
-		"id": 3
-	},
-	{
-		"nombre": "Cocina Patrick",
-		"descripcion": "Diseño CP9750I gas natural 4 hornallas inoxidable 220V puerta con visor 54.72L",
-		"código": "38263798",
-		"fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_985911-MLA40417380036_012020-O.webp",
-		"precio": "52721,24",
-		"stock": "010",
-		"id": 4
-	},
-	{
-		"nombre": "Registro de conducir",
-		"descripcion": "Registros baratitos",
-		"código": 555,
-		"fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
-		"precio": 2999,
-		"stock": 3,
-		"id": 5,
-		"timestamp": 1635304055275
-	}
+  {
+    "nombre": "Cocina Patrick",
+    "descripcion": "Diseño CP9750I gas natural 4 hornallas inoxidable 220V puerta con visor 54.72L",
+    "código": "38263798",
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_985911-MLA40417380036_012020-O.webp",
+    "precio": "52721,24",
+    "stock": "010",
+    "id": 1
+  },
+  {
+    "nombre": "Heladera Patrick",
+    "descripcion": "HPK136M00 black steel con freezer 300L 220V",
+    "código": "50867410",
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_836148-MLA47917810593_102021-O.webp",
+    "precio": "41278,36",
+    "stock": "738",
+    "id": 2
+  },
+  {
+    "nombre": "Freezer horizontal Patrick",
+    "descripcion": "FHP420 blanco 383L 220V",
+    "código": "92562272",
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_2X_711928-MLA41254319676_032020-V.webp",
+    "precio": "87972,96",
+    "stock": "320",
+    "id": 3
+  },
+  {
+    "nombre": "Cocina Patrick",
+    "descripcion": "Diseño CP9750I gas natural 4 hornallas inoxidable 220V puerta con visor 54.72L",
+    "código": "38263798",
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_985911-MLA40417380036_012020-O.webp",
+    "precio": "52721,24",
+    "stock": "010",
+    "id": 4
+  },
+  {
+    "nombre": "Registro de conducir",
+    "descripcion": "Registros baratitos",
+    "código": 555,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 2999,
+    "stock": 3,
+    "id": 5,
+    "timestamp": 1635304055275
+  },
+  {
+    "title": "Nuevo Producto",
+    "description": "producto en prueba",
+    "code": "7895548/78845-23",
+    "price": "158",
+    "thumbnail": "https://http2.mlstatic.com/D_Q_NP_730616-MLA45093724164_032021-AB.webp",
+    "stock": "9",
+    "id": 6,
+    "timestamp": "1636248587564"
+  }
 ]
