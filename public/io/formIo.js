@@ -14,7 +14,7 @@ form.addEventListener('submit', function (e) {
 	let thumbnail = document.getElementById('foto').value;
 	let stock = document.getElementById('stock').value;
 	socket.emit('new-product', { title, description, code, price, thumbnail, stock });
-	title.value = '';
+	title = '';
 	description.value = '';
 	code.value = '';
 	price.value = '';

@@ -19,13 +19,13 @@ const Carrito = require('./models/CarritoClass');
 //{ ID, TIMESTAMP(PRODUCTO), NOMBRE, DESCRIPCION, CÓDIGO, FOTO (URL), PRECIO, STOCK }
 //TIEMSTAMP GENERADO AL AGREGAR AL CARRITO
 class Producto {
-	constructor(nombre, descripcion, código, fotoUrl, precio, stock) {
+	constructor(title, description, code, thumbnail, price, stock) {
 		// this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.código = código;
-		this.fotoUrl = fotoUrl;
-		this.precio = precio;
+		this.title = title;
+		this.description = description;
+		this.code = code;
+		this.thumbnail = thumbnail;
+		this.price = price;
 		this.stock = stock;
 	}
 }
