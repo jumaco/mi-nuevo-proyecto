@@ -4,9 +4,9 @@ const { Router } = express
 
 const router = new Router()
 
-const ContenedorDB = require('../../models/Knex');
+const ContenedorDB = require('../../models/KnexClass');
 const { options } = require('../../options/mariaDB');
-const contenedor = new ContenedorDB( options, 'productos');
+const contenedor = new ContenedorDB(options, 'productos');
 
 //---------ENDPOINTS---------
 // GET: '/:id?' - Me permite listar todos los productos disponibles ó un producto por su id (disponible para usuarios y administradores)
@@ -31,8 +31,13 @@ router.get('/:id', async (req, res) => {
 // POST: '/' - Para incorporar productos al listado (disponible para administradores)
 // POST '/api/producto' -> RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO.
 router.post('/', isAdmin, async (req, res) => {
-	const productoId = await contenedor.save(req.body)
-	res.send({ productoId });
+	try {
+		const productoId = await contenedor.save(req.body)
+		res.send({ productoId });
+	} catch (err) {
+		console.log({err})
+	}
+
 });
 
 // PUT: '/:id' - Actualiza un producto por su id (disponible para administradores)

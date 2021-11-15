@@ -9,8 +9,8 @@ const { Server: IOServer } = require('socket.io')
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
-//GUARDO COMO ATRIBUTO LA INSTANCIA DEL SOCKET PARA PODER USARLA EN LAS RUTAS
-app.set('io', io)
+//guardo como atributo la instancia del socket para poder usarla en las rutas
+app.set('io',io)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

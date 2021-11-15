@@ -69,8 +69,7 @@ socket.on('chat historial', function (msg) {
 			let item = document.createElement('li');
 			item.textContent = `${mensaje.usuario}: ${mensaje.mensaje}`;
 			messages.appendChild(item);
-		}
-
+		};
 	})
 });
 
