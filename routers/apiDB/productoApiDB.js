@@ -9,7 +9,7 @@ const { options } = require('../../options/mariaDB');
 const contenedor = new ContenedorDB(options, 'productos');
 
 //---------ENDPOINTS---------
-// GET: '/:id?' - Me permite listar todos los productos disponibles ó un producto por su id (disponible para usuarios y administradores)
+
 // GET '/api/productos' -> DEVUELVE TODOS LOS PRODUCTOS.
 router.get('/', async (req, res) => {
 	const productos = await contenedor.getAll();
@@ -27,8 +27,6 @@ router.get('/:id', async (req, res) => {
 		res.json(producto);
 	}
 });
-
-// POST: '/' - Para incorporar productos al listado (disponible para administradores)
 // POST '/api/producto' -> RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO.
 router.post('/', isAdmin, async (req, res) => {
 	try {
@@ -39,8 +37,23 @@ router.post('/', isAdmin, async (req, res) => {
 	}
 
 });
-
-// PUT: '/:id' - Actualiza un producto por su id (disponible para administradores)
+// DELETE '/api/producto' -> BORRA TABLA DE PRODUCTOS.
+router.delete('/', isAdmin, async (req, res) => {
+	try {
+		const ok = await contenedor.deleteAll()
+		if (!ok) {
+			res.send({
+				error: 'Tabla no encontrada'
+			});
+		} else {
+			res.send({
+				message: 'Tabla eliminada'
+			});
+		}
+	} catch (err) {
+		console.log({err})
+	}
+});
 // PUT '/api/productos/:id' -> RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID.
 router.put('/:id', isAdmin, async (req, res) => {
 	const productoUpadate = await contenedor.updateById(req.body, Number(req.params.id));
@@ -55,8 +68,6 @@ router.put('/:id', isAdmin, async (req, res) => {
 		});
 	}
 });
-
-// DELETE: '/:id' - Borra un producto por su id (disponible para administradores)
 // DELETE '/api/productos/:id' -> ELIMINA UN PRODUCTO SEGÚN SU ID.
 router.delete('/:id', isAdmin, async (req, res) => {
 	const productoDelete = await contenedor.deleteById(Number(req.params.id))
@@ -69,19 +80,6 @@ router.delete('/:id', isAdmin, async (req, res) => {
 			message: 'Producto eliminado'
 		});
 	}
-});
-
-
-// GET '/api/productosRandom' -> DEVUELVE UN PRODUCTO AL AZAR
-router.get('/productosRandom', async (req, res) => {
-	const producto = await contenedor.getRandom();
-	res.json(producto);
-});
-
-// GET '/api/consulta?1clave=valor&2clave=valor' -> DEVUELVE LA CONSULTA.
-router.get('/consulta', (req, res) => {
-	console.log(req.query)
-	res.send(req.query)
 });
 
 module.exports = router;
