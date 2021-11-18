@@ -3,10 +3,10 @@ const { newTableMySQL } = require('../knex');
 
 
 class ContenedorDB {
-	constructor(opcion, tabla) {
-		this.opcion = opcion;
+	constructor(cliente, tabla) {
+		this.cliente = cliente;
 		this.tabla = tabla;
-		this.conexion = knex(opcion)
+		this.conexion = knex(cliente)
 	}
 	// RECIBE UN PRODUCTO, LO GUARDA EN EL ARCHIVO, DEVUELVE EL ID ASIGNADO.
 	async save(producto) {
@@ -16,7 +16,7 @@ class ContenedorDB {
 			return id;
 		} catch (error) {
 			if (error.errno === 1146) {
-				await newTableMySQL(this.tabla, this.opcion)
+				await newTableMySQL(this.tabla, this.cliente)
 				const [id] = await this.conexion(this.tabla)
 					.insert(producto);
 				return id;

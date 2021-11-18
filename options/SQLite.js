@@ -1,11 +1,11 @@
-const options = {
-    client: 'sqlite',
+const optionsLite = {
+    client: 'sqlite3',
     connection: {
-        filename: './db/mydb.sqlite'
+        filename: './db/ecommerce.sqlite'
     },
-    useNullAsDefaul: true
+    useNullAsDefault: true
 }
 
 module.exports = {
-    options
+    optionsLite
 }
