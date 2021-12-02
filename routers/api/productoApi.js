@@ -78,4 +78,4 @@ router.get('/consulta', (req, res) => {
 	res.send(req.query)
 });
 
-module.exports = router;
+export default router;

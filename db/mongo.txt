@@ -1,0 +1,286 @@
+mongo
+
+show dbs
+
+use admin
+
+db.createUser(
+  {
+    user: "myUserAdmin",
+    pwd: "admin",
+    roles: [
+      { role: "userAdminAnyDatabase", db: "admin" },
+      { role: "readWriteAnyDatabase", db: "admin" }
+    ]
+  }
+)
+
+use ecommerce
+
+db.createCollection('productos')
+
+db.createCollection('mensajes')
+
+db.productos.insertMany([
+  {
+    "timestamp": 1635304055275,
+    "nombre": "Registro de conducir",
+    "descripcion": "Registros baratitos",
+    "código": 000,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 1999,
+    "stock": 1111
+  },
+  {
+    "timestamp": 1635304155275,
+    "nombre": "Analitico",
+    "descripcion": "Analitico baratitos",
+    "código": 111,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 333,
+    "stock": 999
+  },
+  {
+    "timestamp": 1635304255275,
+    "nombre": "Documento unico",
+    "descripcion": "Documento unico baratitos",
+    "código": 222,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 999,
+    "stock": 888
+  },
+  {
+    "timestamp": 1635304355275,
+    "nombre": "Cedula",
+    "descripcion": "Cedula baratitos",
+    "código": 333,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 1111,
+    "stock": 777
+  },
+  {
+    "timestamp": 1635304455275,
+    "nombre": "Helado",
+    "descripcion": "Helado baratitos",
+    "código": 444,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 2222,
+    "stock": 666
+  },
+  {
+    "timestamp": 1635304555275,
+    "nombre": "Helado palito",
+    "descripcion": "Helado palito baratitos",
+    "código": 555,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 2555,
+    "stock": 555
+  },
+  {
+    "timestamp": 1635304655275,
+    "nombre": "Helado bombon",
+    "descripcion": "Helado bombon baratitos",
+    "código": 666,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 1200,
+    "stock": 444
+  },
+  {
+    "timestamp": 1635304755275,
+    "nombre": "Helado tacita",
+    "descripcion": "Helado tacita baratitos",
+    "código": 777,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 3333,
+    "stock": 333
+  },
+  {
+    "timestamp": 1635304855275,
+    "nombre": "Helado balde",
+    "descripcion": "Helado balde baratitos",
+    "código": 888,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 4999,
+    "stock": 222
+  },
+  {
+    "timestamp": 1635304955275,
+    "nombre": "Cucurucho",
+    "descripcion": "Cucurucho baratitos",
+    "código": 999,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 4255,
+    "stock": 111
+  }
+])
+
+db.mensajes.insertMany([
+  {
+    "mensaje": "Buenas Tardes",
+    "usuario": "Juan",
+    "userId": "wPkG9Mpzyzfh73jQAAAH"
+  },
+  {
+    "mensaje": "Buenos noches",
+    "usuario": "JuanCorral",
+    "userId": "677cGOoOzDQf014SAAAL"
+  },
+  {
+    "mensaje": "hastamañana",
+    "usuario": "tania",
+    "userId": "hIk2IoWeU5bPTv-oAAAD"
+  },
+  {
+    "mensaje": "asdasdsad",
+    "usuario": "Agustina",
+    "userId": "eN92ZzNWGbKInRuiAAAD"
+  },
+  {
+    "mensaje": "Buenas",
+    "usuario": "Tania",
+    "userId": "LOax95fTfyUIGiiAAAAB"
+  },
+  {
+    "mensaje": "Otro vaz",
+    "usuario": "JuanCorral",
+    "userId": "zeY1O8hCyJecGhDDAAAF"
+  },
+  {
+    "mensaje": "Voy a dormir",
+    "usuario": "tania",
+    "userId": "hIk2IoWeU5bPTv-oAAAD"
+  },
+  {
+    "mensaje": "Se hizo un poco tarde",
+    "usuario": "Agustina",
+    "userId": "eN92ZzNWGbKInRuiAAAD"
+  },
+  {
+    "mensaje": "Bueno",
+    "usuario": "Tania",
+    "userId": "LOax95fTfyUIGiiAAAAB"
+  },
+  {
+    "mensaje": "Bay bay",
+    "usuario": "JuanCorral",
+    "userId": "zeY1O8hCyJecGhDDAAAF"
+  }
+])
+
+db.productos.find().pretty()
+
+db.mensajes.find().pretty()
+
+db.productos.count()
+
+db.mensajes.count()
+
+db.productos.insertOne(
+  {
+    "timestamp": 1635305955275,
+    "nombre": "Surtido",
+    "descripcion": "Surtido baratitos",
+    "código": 1111,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 3210,
+    "stock": 8
+  }
+)
+
+db.mensajes.insertOne(
+  {
+    "mensaje": "Bay bay",
+    "usuario": "Tania",
+    "userId": "LOax95fTfyUIGiiAAAAB"
+  }
+)
+
+db.productos.count()
+
+db.mensajes.count()
+
+db.productos.find(
+  {
+    "nombre": "Helado tacita"
+  }
+).pretty()
+
+db.mensajes.find(
+  {
+    "mensaje": "Voy a dormir"
+  }
+).pretty()
+
+db.productos.find({
+    "precio": {$lt: 1000}
+}).pretty()
+
+db.productos.find({
+    $and:[
+        {"precio": {$gt: 1000}},
+        {"precio": {$lt: 3000}}
+    ]
+}).pretty()
+
+db.productos.find({
+    "precio": {$gt: 3000}
+}).pretty()
+
+db.productos.find(
+    {},
+    {"nombre": 1, _id:0 }
+).sort({precio: 1}).skip(2).limit(1)
+
+db.productos.updateMany(
+    {},
+    { $set: { stock: 100}})
+
+db.productos.updateMany(
+   { "precio": {$gt: 4000}},
+   { $set: { stock: 0}}
+)
+
+db.productos.deleteMany(
+    {"precio": {$lt: 1000}}
+)
+
+use admin
+
+db.createUser(
+    {
+        user: "pepe",
+        pwd: "asd456",
+        roles: [
+            {role: "read", db: "ecommerce" }
+        ]
+    }
+)
+
+exit
+
+mongo -u pepe
+asd456
+
+use ecommerce
+
+db.productos.find().pretty()
+
+db.productos.insertOne(
+  {
+    "timestamp": 1635305955275,
+    "nombre": "PEPE",
+    "descripcion": "PEPE baratitos",
+    "código": 1111,
+    "fotoUrl": "https://http2.mlstatic.com/D_NQ_NP_954041-MLA46302470460_062021-O.webp",
+    "precio": 3210,
+    "stock": 8
+  }
+)
+
+db.mensajes.insertOne(
+  {
+    "mensaje": "Bay PEPE",
+    "usuario": "PEPE",
+    "userId": "LOax95fTfyUIGiiAPEPE"
+  }
+)

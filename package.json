@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon -r esm ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,15 @@
   "homepage": "https://github.com/jumaco/mi-nuevo-proyecto#readme",
   "dependencies": {
     "anyid": "^1.0.7",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "firebase": "^9.5.0",
+    "firebase-admin": "^10.0.0",
     "knex": "^0.95.13",
+    "mongodb": "^4.2.0",
+    "mongoose": "^6.0.14",
     "mysql": "^2.18.1",
     "socket.io": "^4.3.1",
     "sqlite3": "^5.0.2"

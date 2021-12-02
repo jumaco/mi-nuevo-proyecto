@@ -1,4 +1,4 @@
-const Contenedor = require('./models/ProductoClass')
+const Contenedor = require('../models/ProductoClass')
 
 const contenedor = new Contenedor('./db/productos.json')
 
@@ -12,7 +12,7 @@ const priceRandom = anyid().encode('0')
 	.section(anyid().length(2).random());;;
 // console.log(ids.id());
 
-const Carrito = require('./models/CarritoClass');
+const Carrito = require('../models/CarritoClass');
 //EL CARRITO DE COMPRAS TENDRÁ LA SIGUIENTE ESTRUCTURA: 
 // id, timestamp(carrito), producto: { id, timestamp(producto), nombre, descripcion, código, foto (url), precio, stock }
 

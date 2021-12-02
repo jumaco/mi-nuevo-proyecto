@@ -2,7 +2,7 @@ const knex = require('knex');
 const { newTableMySQL } = require('../scripts/knex');
 
 
-class ContenedorDB {
+class ContenedorMariaDB {
 	constructor(cliente, tabla) {
 		this.cliente = cliente;
 		this.tabla = tabla;
@@ -89,4 +89,4 @@ class ContenedorDB {
 	}
 }
 
-module.exports = ContenedorDB;
+module.exports = ContenedorMariaDB;

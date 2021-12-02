@@ -2,7 +2,7 @@ const knex = require('knex');
 const { newTableLite } = require('../scripts/knex');
 
 
-class ContenedorDB {
+class ContenedorSQLite {
 	constructor(cliente, tabla) {
 		this.cliente = cliente;
 		this.tabla = tabla;
@@ -38,4 +38,4 @@ class ContenedorDB {
 	}
 }
 
-module.exports = ContenedorDB;
+module.exports = ContenedorSQLite;
