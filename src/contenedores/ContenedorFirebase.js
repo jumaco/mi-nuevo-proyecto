@@ -1,4 +1,4 @@
-import admin from "firebase-admin"
+import admin from 'firebase-admin'
 import config from '../config.js'
 
 admin.initializeApp({
@@ -8,16 +8,14 @@ admin.initializeApp({
 const db = admin.firestore();
 
 class ContenedorFirebase {
-
 	constructor(nombreColeccion) {
 		this.coleccion = db.collection(nombreColeccion)
 	}
-
 	async getById(id) {
 		try {
 			const doc = await this.coleccion.doc(id).get();
 			if (!doc.exists) {
-				throw new Error(`Error al listar por id: no se encontró`)
+				return false
 			} else {
 				const data = doc.data();
 				return { ...data, id }
@@ -26,7 +24,6 @@ class ContenedorFirebase {
 			throw new Error(`Error al listar por id: ${error}`)
 		}
 	}
-
 	async getAll() {
 		try {
 			const result = []
@@ -39,25 +36,25 @@ class ContenedorFirebase {
 			throw new Error(`Error al listar todo: ${error}`)
 		}
 	}
-
-	async save(nuevoElem) {
+	async save(object) {
 		try {
-			const guardado = await this.coleccion.add(nuevoElem);
-			return { ...nuevoElem, id: guardado.id }
+			const guardado = await this.coleccion.add({
+				...object,
+				timestamp: Date.now().toString()
+			});
+			return { ...object, id: guardado.id }
 		} catch (error) {
 			throw new Error(`Error al guardar: ${error}`)
 		}
 	}
-
-	async updateById(nuevoElem) {
+	async updateById(object) {
 		try {
-			const actualizado = await this.coleccion.doc(nuevoElem.id).set(nuevoElem);
+			const actualizado = await this.coleccion.doc(object.id).set(object);
 			return actualizado
 		} catch (error) {
 			throw new Error(`Error al actualizar: ${error}`)
 		}
 	}
-
 	async deleteById(id) {
 		try {
 			const item = await this.coleccion.doc(id).delete();
@@ -66,24 +63,22 @@ class ContenedorFirebase {
 			throw new Error(`Error al borrar: ${error}`)
 		}
 	}
-
 	async deleteAll() {
 		// version fea e ineficiente pero entendible para empezar
 		try {
-			const docs = await this.listarAll()
-			const ids = docs.map(d => d.id)
-			const promesas = ids.map(id => this.borrar(id))
-			const resultados = await Promise.allSettled(promesas)
-			const errores = resultados.filter(r => r.status == 'rejected')
-			if (errores.length > 0) {
-				throw new Error('no se borró todo. volver a intentarlo')
-			}
-			// const ref = firestore.collection(path)
-			// ref.onSnapshot((snapshot) => {
-			//     snapshot.docs.forEach((doc) => {
-			//         ref.doc(doc.id).delete()
-			//     })
-			// })
+			const item = await this.coleccion.doc().delete();
+			return item
+
+
+
+			// const docs = await this.getAll()
+			// const ids = docs.map(d => d.id)
+			// const promesas = ids.map(id => this.deleteById(id))
+			// const resultados = await Promise.allSettled(promesas)
+			// const errores = resultados.filter(r => r.status == 'rejected')
+			// if (errores.length > 0) {
+			// 	throw new Error('no se borró todo. volver a intentarlo')
+			// }
 		} catch (error) {
 			throw new Error(`Error al borrar: ${error}`)
 		}

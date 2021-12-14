@@ -12,13 +12,13 @@ import { carritosDao as carritosApi } from '../../src/daos/index.js'
 
 // POST '/api/carrito' -> CREA UN CARRITO Y DEVUELVE SU ID
 router.post('/', async (req, res) => {
-	const idCarrito = await carritosApi.save()
+	const idCarrito = await carritosApi.save(req.body)
 	res.send({ idCarrito });
 });
 
 //DELETE: '/:id' - ELIMINA UN CARRITO POR SU ID.
 router.delete('/:id', async (req, res) => {
-	const carroDelete = await carritosApi.deleteById(Number(req.params.id))
+	const carroDelete = await carritosApi.deleteById(req.params.id)
 	if (!carroDelete) {
 		res.send({
 			error: 'Carrito no encontrado'
@@ -32,7 +32,7 @@ router.delete('/:id', async (req, res) => {
 
 //GET: '/:id/productos' - ME PERMITE LISTAR TODOS LOS PRODUCTOS GUARDADOS EN EL CARRITO
 router.get('/:id/productos', async (req, res) => {
-	const userCarrito = await carritosApi.getById(Number(req.params.id));
+	const userCarrito = await carritosApi.getById(req.params.id)
 	const { productos } = userCarrito
 	if (!userCarrito) {
 		res.send({
@@ -51,13 +51,13 @@ router.get('/:id/productos', async (req, res) => {
 
 //POST: '/:id/productos' - PARA INCORPORAR PRODUCTOS AL CARRITO POR SU ID
 router.post('/:id/productos', async (req, res) => {
-	const idCarrito = await carritosApi.save(req.body, Number(req.params.id))
+	const idCarrito = await carritosApi.save(req.body, req.params.id)
 	res.send({ idCarrito });
 });
 
 //DELETE: '/:id/productos/:id_prod' - ELIMINAR UN PRODUCTO DEL CARRITO POR SU ID DE CARRITO Y DE PRODUCTO
 router.delete('/:id/productos/:id_prod', async (req, res) => {
-	const ProductoDelCarroDelete = await carritosApi.deleteById(Number(req.params.id), Number(req.params.id_prod))
+	const ProductoDelCarroDelete = await carritosApi.deleteById(req.params.id, req.params.id_prod)
 	if (!ProductoDelCarroDelete) {
 		res.send({
 			error: 'producto no encontrado'
@@ -79,7 +79,7 @@ router.get('/', async (req, res) => {
 
 // GET '/api/carrito/:id' -> DEVUELVE UN carrito SEGÚN SU ID.
 router.get('/:id', async (req, res) => {
-	const id = Number(req.params.id)
+	const id = req.params.id
 	const producto = await carritosApi.getById(id);
 	if (!producto) {
 		res.send({
@@ -92,7 +92,7 @@ router.get('/:id', async (req, res) => {
 
 // PUT '/api/carrito/:id' -> RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID.
 router.put('/:id', async (req, res) => {
-	const productoUpadate = await carritosApi.updateById(req.body, Number(req.params.id));
+	const productoUpadate = await carritosApi.updateById(req.body, req.params.id)
 	if (!productoUpadate) {
 		res.send({
 			error: 'Carrito no encontrado'
