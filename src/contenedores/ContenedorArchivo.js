@@ -44,9 +44,10 @@ class ContenedorArchivo {
 		try {
 			const contenido = await this.read();
 			const arrayObtenido = JSON.parse(contenido);
-			let objectEncontrado = null
+			let objectEncontrado = null;
+			console.log(id)
 			arrayObtenido.map((object) => {
-				if (object.id === id) {
+				if (object.id.toString() === id) {
 					objectEncontrado = object;
 				}
 			})
@@ -89,7 +90,7 @@ class ContenedorArchivo {
 			const arrayObtenido = JSON.parse(contenido);
 			let encontrado = false
 			arrayObtenido.map((object) => {
-				if (object.id === id) {
+				if (object.id.toString() === id) {
 					encontrado = true
 					let indice = arrayObtenido.indexOf(object);
 					arrayObtenido.splice(indice, 1);

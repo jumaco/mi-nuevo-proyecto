@@ -64,26 +64,13 @@ class ContenedorFirebase {
 		}
 	}
 	async deleteAll() {
-		// version fea e ineficiente pero entendible para empezar
 		try {
 			const item = await this.coleccion.doc().delete();
 			return item
-
-
-
-			// const docs = await this.getAll()
-			// const ids = docs.map(d => d.id)
-			// const promesas = ids.map(id => this.deleteById(id))
-			// const resultados = await Promise.allSettled(promesas)
-			// const errores = resultados.filter(r => r.status == 'rejected')
-			// if (errores.length > 0) {
-			// 	throw new Error('no se borró todo. volver a intentarlo')
-			// }
 		} catch (error) {
 			throw new Error(`Error al borrar: ${error}`)
 		}
 	}
-
 	async disconect() {
 	}
 }

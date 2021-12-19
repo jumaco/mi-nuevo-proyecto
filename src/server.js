@@ -20,25 +20,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //----------------------  MÓDULOS DE DIRECCIONAMIENTO ROUTER
-
-// const productos = require('../routers/api/productoApi');
-// const carrito = require('../routers/api/carritoApi');
-// const chatRouter = require('../routers/webSoket/chat/chat');
-// const ejsRouter = require('../routers/ejs/ejs');
-// const formIoRouter = require('../routers/webSoket/productos/form')
 import productos from '../routers/api/productoApi'
 import carrito from '../routers/api/carritoApi'
 import chatRouter from '../routers/webSoket/chat/chat'
 import ejsRouter from '../routers/ejs/ejs'
 import formIoRouter from '../routers/webSoket/productos/form'
 
-// const productosDB = require('../routers/apiDB/productoApiDB');
-// const chatDB = require('../routers/apiDB/chatApiDB');
-// const carritoDB = require('../routers/apiDB/carritoApiDB');
 import productosDB from '../routers/apiDB/productoApiDB'
 import chatDB from '../routers/apiDB/chatApiDB'
 import carritoDB from '../routers/apiDB/carritoApiDB'
-
 
 
 // ---------------------  ENDPOINTS EXPRESS

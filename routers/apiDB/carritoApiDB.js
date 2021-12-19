@@ -77,7 +77,7 @@ router.get('/', async (req, res) => {
 	res.json(productos);
 });
 
-// GET '/api/carrito/:id' -> DEVUELVE UN carrito SEGÚN SU ID.
+// GET '/api/carrito/:id' -> DEVUELVE UN CARRITO SEGÚN SU ID.
 router.get('/:id', async (req, res) => {
 	const id = req.params.id
 	const producto = await carritosApi.getById(id);
@@ -90,7 +90,7 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-// PUT '/api/carrito/:id' -> RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID.
+// PUT '/api/carrito/:id' -> RECIBE Y ACTUALIZA UN CARRITO SEGÚN SU ID.
 router.put('/:id', async (req, res) => {
 	const productoUpadate = await carritosApi.updateById(req.body, req.params.id)
 	if (!productoUpadate) {

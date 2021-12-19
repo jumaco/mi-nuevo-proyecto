@@ -71,6 +71,7 @@ router.delete('/', isAdmin, async (req, res) => {
 });
 // PUT '/api/productos/:id' -> RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID.
 router.put('/:id', isAdmin, async (req, res) => {
+	console.log('modificando producto')
 	const productoUpadate = await productosApi.updateById(req.body, req.params.id)
 	if (!productoUpadate) {
 		res.send({

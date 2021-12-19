@@ -7,7 +7,7 @@ class ContenedorMongoDb {
 		console.log('Construyendo desde ContenedorMongoDb')
 		this.coleccion = mongoose.model(colection, esquema)
 		this.init()
-		console.log({colection}, {esquema})
+		console.log({ colection }, { esquema })
 		// console.log(esquema)
 	}
 	async init() {
@@ -26,7 +26,7 @@ class ContenedorMongoDb {
 		try {
 			const docs = await this.coleccion.find({ '_id': id }, { __v: 0 })
 			if (docs.length == 0) {
-				throw new Error('Error al listar por id: no encontrado')
+				return null
 			} else {
 				const result = renameField(asPOJO(docs[0]), '_id', 'id')
 				return result
@@ -56,12 +56,14 @@ class ContenedorMongoDb {
 			throw new Error(`Error al guardar: ${error}`)
 		}
 	};
-	async updateById(nuevoElem) {
+	async updateById(nuevoElem, id) {
 		try {
-			renameField(nuevoElem, 'id', '_id')
-			const { n, nModified } = await this.coleccion.replaceOne({ '_id': nuevoElem._id }, nuevoElem)
-			if (n == 0 || nModified == 0) {
-				throw new Error('Error al actualizar: no encontrado')
+			console.log('Modificando producto contenedor mongo')
+			console.log(nuevoElem)
+			const { matchedCount, modifiedCount } = await this.coleccion.replaceOne({ '_id': id }, nuevoElem)
+			console.log(matchedCount, modifiedCount)
+			if (matchedCount == 0 || modifiedCount == 0) {
+				return null
 			} else {
 				renameField(nuevoElem, '_id', 'id')
 				removeField(nuevoElem, '__v')
@@ -72,10 +74,14 @@ class ContenedorMongoDb {
 		}
 	};
 	async deleteById(id) {
+		console.log('Boorando desde contenedor')
 		try {
-			const { n, nDeleted } = await this.coleccion.deleteOne({ '_id': id })
-			if (n == 0 || nDeleted == 0) {
-				throw new Error('Error al borrar: no encontrado')
+			const {deletedCount} = await this.coleccion.deleteOne({ '_id': id })
+			console.log(deletedCount)
+			if (!deletedCount) {
+				return null
+			}else{
+				return true
 			}
 		} catch (error) {
 			throw new Error(`Error al borrar: ${error}`)
