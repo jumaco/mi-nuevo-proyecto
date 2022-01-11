@@ -1,14 +1,27 @@
 <div class="container mt-1">
-    <div class="jumbotron">
-        <h1 class="display-4">Centro de Mensajes</h1>
-        <ul id="messages"></ul>
-        <form id="formChat" action="">
-            <div>
+	<div class="jumbotron">
+		<h1 class="display-4">Centro de Mensajes (Compresión: <span id="compresion-info"></span>%)</h1>
+
+		<br />
+
+		<input type="text" id="username" class="form-control w-50 my-2 mr-2" placeholder="Ingresá tu email" />
+		<input type="text" id="firstname" class="form-control w-50 my-2 mr-2" placeholder="Ingresá tu nombre" />
+		<input type="text" id="lastname" class="form-control w-50 my-2 mr-2" placeholder="Ingresá tu apellido" />
+		<input type="text" id="age" class="form-control w-50 my-2 mr-2" placeholder="Ingresá tu edad" />
+		<input type="text" id="alias" class="form-control w-50 my-2 mr-2" placeholder="Ingresá tu alias" />
+		<input type="text" id="avatar" class="form-control w-50 my-2 mr-2" placeholder="Ingresá tu avatar (url)" />
+		
+		<hr />
+
+		<ul id="messages"></ul>
+		<form id="formChat" action="">
+			<!-- <div>
                 <input id="username" class="inputsChat" type="text" placeholder="Tu Nombre">
-            </div>
+            </div> -->
 
-            <input id="input" class="inputsChat" autocomplete="off" /><button>Send</button>
-        </form>
-
-    </div>
+			<input id="input" class="inputsChat" autocomplete="off" /><button>
+				Send
+			</button>
+		</form>
+	</div>
 </div>

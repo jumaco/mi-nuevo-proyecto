@@ -11,6 +11,11 @@ import CarritosDaoMongoDB from './carritos/CarritosDaoMongoDB.js'
 import ProductosDaoMemoria from './productos/ProductosDaoMemoria.js'
 import CarritosDaoMemoria from './carritos/CarritosDaoMemoria.js'
 
+import ChatDaoArchivo from './chat/ChatDaoArchivo.js'
+import ChatDaoFirebase from './chat/ChatDaoFirebase.js'
+import ChatDaoMongoDB from './chat/ChatDaoMongoDB.js'
+import ChatDaoMemoria from './chat/ChatDaoMemoria.js'
+
 let productosDao
 
 if (process.env.storage === 'mongodb') {
@@ -48,6 +53,25 @@ if (process.env.storage === 'json') {
 	carritosDao = new CarritosDaoArchivo()
 }
 
-console.log({ productosDao }, {carritosDao})
 
-export { productosDao, carritosDao }
+let chatDao
+
+if (process.env.storage === 'mongodb') {
+	chatDao = new ChatDaoMongoDB()
+}
+
+if (process.env.storage === 'memoria') {
+	chatDao = new ChatDaoMemoria()
+}
+
+if (process.env.storage === 'firebase') {
+	chatDao = new ChatDaoFirebase()
+}
+
+if (process.env.storage === 'json') {
+	chatDao = new ChatDaoArchivo()
+}
+
+console.log({ productosDao }, { carritosDao }, { chatDao })
+
+export { productosDao, carritosDao, chatDao }

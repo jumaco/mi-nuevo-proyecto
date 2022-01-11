@@ -7,14 +7,23 @@ const router = new Router()
 // const ContenedorDB = require('../../models/KnexClass');
 // const { options } = require('../../options/mariaDB');
 // const contenedor = new ContenedorDB(options, 'productos');
-const ProductoDB = require('../../models/KnexClass');
-const { options } = require('../../options/mariaDB');
-const contenedor = new ProductoDB(options, 'productos')
 
-const ChatDB = require('../../models/ChatKnexClass')
-const { optionsLite } = require('../../options/SQLite');
-const chat = new ChatDB(optionsLite, 'chat')
-//---------ENDPOINTS---------
+// const ProductoDB = require('../../models/KnexClass');
+// const { options } = require('../../options/mariaDB');
+// const contenedor = new ProductoDB(options, 'productos')
+
+import { productosDao as productosApi } from '../../src/daos/index.js'
+
+// ---------Knex SQLite--------------------------------
+// const ChatDB = require('../../models/ChatKnexClass')
+// const { optionsLite } = require('../../options/SQLite');
+// const chat = new ChatDB(optionsLite, 'chat')
+
+//--------------Persistencia CHAT DAO -----------------
+
+import { chatDao as chatApi } from '../../src/daos/index.js'
+
+//----------ENDPOINTS----------------------------------
 
 router.get('/', (req, res) => {
 	console.log("WebSocket desde DB");
@@ -26,10 +35,10 @@ router.get('/', (req, res) => {
 
 	io.on('connection', async (socket) => {
 		// // "CONNECTION" SE EJECUTA LA PRIMERA VEZ PARA CARGAR LOS PRODUCTOS
-		const productos = await contenedor.getAll();
+		const productos = await productosApi.getAll();
 		io.sockets.emit('products', productos);
 
-		const mensajes = await chat.getAll();
+		const mensajes = await chatApi.getAll();
 		io.sockets.emit('chat historial', mensajes);
 
 		// "CONNECTION" SE EJECUTA LA PRIMERA VEZ QUE SE ABRE UNA NUEVA CONEXIÓN
@@ -59,7 +68,7 @@ router.get('/', (req, res) => {
 				...msg,
 				userId
 			})
-			await chat.save({
+			await chatApi.save({
 				...msg,
 				userId
 			})
@@ -72,8 +81,8 @@ router.get('/', (req, res) => {
 
 		//CARGA DE PRUDUCTO MEDIANTE SOCKET.IO
 		socket.on('new-product', async product => {
-			await contenedor.save(product);
-			const productos = await contenedor.getAll();
+			await productosApi.save(product);
+			const productos = await productosApi.getAll();
 			console.log(productos)
 			io.sockets.emit('products', productos);
 		})

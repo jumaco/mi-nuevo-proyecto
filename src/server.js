@@ -30,13 +30,16 @@ import productosDB from '../routers/apiDB/productoApiDB'
 import chatDB from '../routers/apiDB/chatApiDB'
 import carritoDB from '../routers/apiDB/carritoApiDB'
 
+import home from '../routers/web/home';
+
+import faker from '../routers/faker/faker'
 
 // ---------------------  ENDPOINTS EXPRESS
 
 // GET '/' -> ENDPOINT INICIAL
 const PATH = '/';
 const callback = (request, response, next) => {
-	response.send({ mensaje: 'STORAGE PUEDE SER json, firebase, mongodb, mariadb, sqlite3, O VACIO TOMA POR DEFECTO MEMORIA! DIRIGETE A /api/productos O /api/carrito' });
+	response.send({ mensaje: 'STORAGE PUEDE SER json, firebase, mongodb, mariadb, sqlite3, O VACIO TOMA POR DEFECTO MEMORIA! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' });
 };
 app.get(PATH, callback);
 
@@ -56,6 +59,10 @@ app.use('/form-io', formIoRouter)
 app.use('/apiDB/productos', productosDB)
 app.use('/apiDB/chat', chatDB)
 app.use('/apiDB/carrito', carritoDB)
+
+app.use('/home', home)
+
+app.use('/api/productos-test', faker )
 
 //------------------------  RUTA METODO NO IMPLEMENTADO
 
