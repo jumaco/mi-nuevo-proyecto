@@ -78,5 +78,25 @@
     "stock": "125",
     "timestamp": "1638393196304",
     "id": 14
+  },
+  {
+    "title": "asdasd",
+    "description": "FHP420 blanco 383L 220V",
+    "code": "11",
+    "price": "234",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_737620-MLA40298137399_012020-O.webp",
+    "stock": "23",
+    "id": 15,
+    "timestamp": "1642628072463"
+  },
+  {
+    "title": "Otro Nuevo Producto",
+    "description": "Origen IPA rubia lata 473 mL 6 u",
+    "code": "7895548/78845-23",
+    "price": "7785",
+    "thumbnail": "https://http2.mlstatic.com/D_Q_NP_730616-MLA45093724164_032021-AB.webp",
+    "stock": "999",
+    "id": 16,
+    "timestamp": "1642629758724"
   }
 ]

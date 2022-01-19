@@ -1,6 +1,5 @@
 const socket = io.connect();
 
-
 //····················FORM·························
 // CUANDO EL USUARIO ESCRIBA UN MENSAJE, EL SERVIDOR LO RECIBE COMO UN CHAT 'products' EVENTO
 const form = document.getElementById('form');
@@ -42,40 +41,66 @@ socket.on('products', (productos) => {
 
 
 //····················CHAT·························
+
+
+/* --------------------- DESNORMALIZACIÓN DE MENSAJES ---------------------------- */
+// Definimos un esquema de autor
+const schemaAuthor = new normalizr.schema.Entity('author', {}, { idAttribute: 'email' });
+
+// Definimos un esquema de mensaje
+const schemaMensaje = new normalizr.schema.Entity('message', { author: schemaAuthor }, { idAttribute: 'id' })
+
+// Definimos un esquema de posts
+const schemaMensajes = new normalizr.schema.Entity('messages', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
+
+
 // CUANDO EL USUARIO ESCRIBA UN MENSAJE, EL SERVIDOR LO RECIBE COMO UN CHAT 'chat message' EVENTO
 const formChat = document.getElementById('formChat');
-const input = document.getElementById('input');
-const username = document.getElementById('username');
-const message = {
-	input,
-	username
-}
+const inputMensaje = document.getElementById('inputMensaje')
+const inputUsername = document.getElementById('username')
+
 
 formChat.addEventListener('submit', function (e) {
 	e.preventDefault();
-	if (input.value) {
-		let mensaje = input.value;
-		let usuario = username.value;
-		socket.emit('chat message', { mensaje, usuario, });
-		input.value = '';
+
+	const message = {
+		author: {
+			email: inputUsername.value,
+			nombre: document.getElementById('firstname').value,
+			apellido: document.getElementById('lastname').value,
+			edad: document.getElementById('age').value,
+			alias: document.getElementById('alias').value,
+			avatar: document.getElementById('avatar').value
+		},
+		text: inputMensaje.value
 	}
+
+	socket.emit('chat message', message);
+	inputMensaje.value = '';
 });
 
-socket.on('chat historial', function (msg) {
+socket.on('chat historial', msg => {
+
 	console.log(msg);
-	let messages = document.getElementById('messages');
-	msg.map((mensaje) => {
-		if (mensaje.usuario != undefined && mensaje.mensaje != undefined) {
-			let item = document.createElement('li');
-			item.textContent = `${mensaje.usuario}: ${mensaje.mensaje}`;
-			messages.appendChild(item);
-		};
-	})
-});
+	const dataDenormalized = normalizr.denormalize(msg.result, schemaMensajes, msg.entities);
+	console.log(dataDenormalized);
 
-socket.on('chat message', function (msg) {
-	let item = document.createElement('li');
-	item.textContent = `${msg.usuario}: ${msg.mensaje}`;
-	messages.appendChild(item);
-	window.scrollTo(0, document.body.scrollHeight);
+	let mensajesNsize = JSON.stringify(msg).length
+	let mensajesD = normalizr.denormalize(msg.result, schemaMensajes, msg.entities)
+	let mensajesDsize = JSON.stringify(mensajesD).length
+	let porcentajeC = parseInt((mensajesNsize * 100) / mensajesDsize)
+	document.getElementById('compresion-info').innerText = porcentajeC
+
+	const productList = mensajesD.mensajes.map((mensaje) => `
+
+	<div class="containerChat">
+		<span class="time-right">${mensaje.author.email}</span>
+		<img src=${mensaje.author.avatar}" alt="Avatar">
+		<p>${mensaje.text}</p>
+		<span class="time-right">${mensaje.timestamp}</span>
+	</div>
+
+    `).join('');
+	let messages = document.getElementById('messages');
+	messages.innerHTML = productList;
 });
