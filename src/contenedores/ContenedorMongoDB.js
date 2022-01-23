@@ -2,21 +2,24 @@ const mongoose = require('mongoose');
 const config = require('../config')
 import { asPOJO, renameField, removeField } from '../utils/objectUtils.js'
 
+require('dotenv').config()
+
+let conexion = process.env.storage === 'mongodb' ? config.mongodb.host : config.mongoRemote.host;
+let opciones = process.env.storage === 'mongodb' ? config.mongodb.options : config.mongoRemote.options;
+
 class ContenedorMongoDb {
+	
 	constructor(colection, esquema) {
 		console.log('Construyendo desde ContenedorMongoDb')
 		this.coleccion = mongoose.model(colection, esquema)
 		this.init()
 		console.log({ colection }, { esquema })
-		// console.log(esquema)
 	}
 	async init() {
 		console.log('Iniciando conexion desde ContenedorMongoDb')
-		// console.log(this.conection)
 		try {
 			if (!this.conection) {
-				this.conection = await mongoose.connect(config.mongodb.host, config.mongodb.options)
-				// console.log(this.conection)
+				this.conection = await mongoose.connect(conexion, opciones)
 			}
 		} catch (error) {
 			console.log('error al ejecutar', { error })
@@ -46,6 +49,7 @@ class ContenedorMongoDb {
 		}
 	};
 	async save(nuevoElem) {
+		nuevoElem.timestamp = Date.now().toString();
 		try {
 			let doc = await this.coleccion.create(nuevoElem);
 			doc = asPOJO(doc)
@@ -77,7 +81,6 @@ class ContenedorMongoDb {
 		console.log('Boorando desde contenedor')
 		try {
 			const {deletedCount} = await this.coleccion.deleteOne({ '_id': id })
-			console.log(deletedCount)
 			if (!deletedCount) {
 				return null
 			}else{

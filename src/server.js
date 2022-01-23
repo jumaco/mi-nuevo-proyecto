@@ -14,7 +14,7 @@ const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
 //GUARDO CÓMO ATRIBUTO LA INSTANCIA DEL SOCKET PARA PODER USARLA EN ROUTERS
-app.set('io',io)
+app.set('io', io)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,11 +37,15 @@ import faker from '../routers/faker/faker'
 // ---------------------  ENDPOINTS EXPRESS
 
 // GET '/' -> ENDPOINT INICIAL
-const PATH = '/';
+/*const PATH = '/';
 const callback = (request, response, next) => {
-	response.send({ mensaje: 'STORAGE PUEDE SER json, firebase, mongodb, mariadb, sqlite3, O VACIO TOMA POR DEFECTO MEMORIA! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' });
+    response.send({ mensaje: 'STORAGE PUEDE SER json, firebase, mongodb, mariadb, sqlite3, O VACIO TOMA POR DEFECTO MEMORIA! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' });
 };
-app.get(PATH, callback);
+app.get(PATH, callback);*/
+
+app.get('/', (req, res) => {
+    res.redirect('/home')
+})
 
 //------------------------  STATIC
 app.use('/agregar', express.static('public'));
@@ -60,17 +64,19 @@ app.use('/apiDB/productos', productosDB)
 app.use('/apiDB/chat', chatDB)
 app.use('/apiDB/carrito', carritoDB)
 
-app.use('/home', home)
+app.use('/', home)
 
-app.use('/api/productos-test', faker )
+
+app.use('/api/productos-test', faker)
+
 
 //------------------------  RUTA METODO NO IMPLEMENTADO
 
 app.use((req, res, next) => {
-	res.status(404).send({
-		error: -2,
-		descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
-	});
+    res.status(404).send({
+        error: -2,
+        descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
+    });
 });
 //------------------------  EJS
 
@@ -79,7 +85,7 @@ app.set('view engine', 'ejs');
 
 //------------------------  ENCIENDO EL SERVER
 const callbackInit = () => {
-	console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en: http://localhost:${PORT}`);
 };
 
 httpServer.listen(process.env.PORT || PORT, callbackInit);

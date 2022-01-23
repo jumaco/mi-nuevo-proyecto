@@ -1,25 +1,50 @@
-import { Router } from 'express'
-import { webAuth } from '../../src/auth/index.js'
+const express = require('express')
+const { Router } = express
 
-import path from 'path'
+import cookieParser from 'cookie-parser'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
-const home = new Router()
+import config from '../../src/config.js'
 
-home.get('/', (req, res) => {
-    res.redirect('/home')
+const router = new Router()
+
+
+//------------------------  RUTA session
+
+
+router.use(cookieParser())
+router.use(session({
+    // Persistencia por redis database
+    store: MongoStore.create({
+        mongoUrl: config.mongoRemote.host,
+        mongoOptions: advancedOptions
+    }),
+    secret: 'shhhhhhhhhhhhhhhhhhhhh',
+    resave: false,
+    saveUninitialized: false/*,
+    rolling: true,
+    cookie: {
+        maxAge: 60000
+    }*/
+}))
+
+router.use('/home', (req, res) => {
+    if (req.session.contador) {
+        req.session.contador++
+        res.send(`Ud ha visitado el sitio ${req.session.contador} veces`)
+    } else {
+        req.session.contador = 1
+        res.send(`Bienvenido!`)
+    }
 })
 
-home.get('/home', webAuth, (req, res) => {
-    res.render(path.join(process.cwd(), '/views/pages/home.ejs'), {
-        nombre: req.user.displayName,
-        foto: req.user.photos[0].value,
-        email: req.user.emails[0].value,
-        contador: req.user.contador
+router.use('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (!err) res.send('Logout OK!')
+        else res.send({ status: 'Logout EROOR', body: err })
     })
 })
 
-home.get('/productos-vista-test', (req, res) => {
-    res.sendFile(path.join(process.cwd(), '/views/productos-vista-test.html'))
-})
-
-export default home
+export default router

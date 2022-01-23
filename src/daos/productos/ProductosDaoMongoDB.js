@@ -11,7 +11,7 @@ class ProductosDaoMongoDB extends ContenedorMongoDb {
 			price: { type: Number, required: true },
 			thumbnail: { type: String, required: true },
 			stock: { type: Number, required: true },
-			timestamp: { type: String, required: true },
+			timestamp: { type: String, required: false },
 		})
 	}
 }

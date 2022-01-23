@@ -22,6 +22,10 @@ if (process.env.storage === 'mongodb') {
 	productosDao = new ProductosDaoMongoDB()
 }
 
+if (process.env.storage === 'mongoRemote') {
+	productosDao = new ProductosDaoMongoDB()
+}
+
 if (process.env.storage === 'memoria') {
 	productosDao = new ProductosDaoMemoria()
 }
@@ -41,6 +45,10 @@ if (process.env.storage === 'mongodb') {
 	carritosDao = new CarritosDaoMongoDB()
 }
 
+if (process.env.storage === 'mongoRemote') {
+	carritosDao = new CarritosDaoMongoDB()
+}
+
 if (process.env.storage === 'memoria') {
 	carritosDao = new CarritosDaoMemoria()
 }
@@ -57,6 +65,10 @@ if (process.env.storage === 'json') {
 let chatDao
 
 if (process.env.storage === 'mongodb') {
+	chatDao = new ChatDaoMongoDB()
+}
+
+if (process.env.storage === 'mongoRemote') {
 	chatDao = new ChatDaoMongoDB()
 }
 
