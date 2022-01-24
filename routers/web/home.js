@@ -23,26 +23,27 @@ router.use(session({
     }),
     secret: 'shhhhhhhhhhhhhhhhhhhhh',
     resave: false,
-    saveUninitialized: false/*,
+    saveUninitialized: false,
     rolling: true,
     cookie: {
         maxAge: 60000
-    }*/
+    }
 }))
 
-router.use('/home', (req, res) => {
+router.use('/home/:nombre', (req, res) => {
     if (req.session.contador) {
         req.session.contador++
-        res.send(`Ud ha visitado el sitio ${req.session.contador} veces`)
+        res.json(`${req.session.nombre} has visitado el sitio ${req.session.contador} veces`)
     } else {
+        req.session.nombre = req.params.nombre
         req.session.contador = 1
-        res.send(`Bienvenido!`)
+        res.json(`Bienvenido ${req.session.nombre}!`)
     }
 })
 
 router.use('/logout', (req, res) => {
     req.session.destroy(err => {
-        if (!err) res.send('Logout OK!')
+        if (!err) res.json('Logout OK!')
         else res.send({ status: 'Logout EROOR', body: err })
     })
 })
