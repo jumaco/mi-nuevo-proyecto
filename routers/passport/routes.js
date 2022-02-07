@@ -4,10 +4,8 @@ function getRoot(req, res) {
 
 
 function getLogin(req, res) {
-	
 	if (req.isAuthenticated()) {
-
-		var user = req.user;
+		let user = req.user;
 		console.log('user logueado');
 		res.json('login-ok', {
 			usuario: user.username,
@@ -18,40 +16,34 @@ function getLogin(req, res) {
 	}
 	else {
 		console.log('user NO logueado');
-		res.json('user NO logueado');
+		res.json('User NO logueado');
 	}
 }
 
 
 function getSignup(req, res) {
-	res.json('Logueate! post ');
+	res.json('Registrate! -> POST <- ');
 }
 
 
 function postLogin(req, res) {
 	let user = req.user;
-	console.log(user);
-
 	res.send(`Bienvenido ${user.username}!!!`);
 }
 
 
 function postSignup(req, res) {
 	let user = req.user;
-	console.log(user);
-
 	res.send(`Bienvenido! ${user.username}`);
 }
 
 
 function getFaillogin(req, res) {
-	console.log('error en login');
 	res.send('login-error');
 }
 
 
 function getFailsignup(req, res) {
-	console.log('error en signup');
 	res.send('signup-error');
 }
 
