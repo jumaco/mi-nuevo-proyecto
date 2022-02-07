@@ -30,7 +30,7 @@ router.use(session({
     }
 }))
 
-router.use('/home/:nombre', (req, res) => {
+router.use('/login/:nombre', (req, res) => {
     if (req.session.contador) {
         req.session.contador++
         res.json(`${req.session.nombre} has visitado el sitio ${req.session.contador} veces`)

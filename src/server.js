@@ -1,12 +1,8 @@
-// const express = require('express');
-
-import express from 'express'
-
 const app = express();
 const PORT = 8080;
 
-// const { Server: HttpServer } = require('http')
-// const { Server: IOServer } = require('socket.io')
+import express from 'express'
+
 import { Server as HttpServer } from 'http'
 import { Server as IOServer } from 'socket.io'
 
@@ -19,7 +15,8 @@ app.set('io', io)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//----------------------  MÓDULOS DE DIRECCIONAMIENTO ROUTER
+//----------------------  MÓDULOS DE DIRECCIONAMIENTO ROUTER  ------------------------
+
 import productos from '../routers/api/productoApi'
 import carrito from '../routers/api/carritoApi'
 import chatRouter from '../routers/webSoket/chat/chat'
@@ -30,29 +27,28 @@ import productosDB from '../routers/apiDB/productoApiDB'
 import chatDB from '../routers/apiDB/chatApiDB'
 import carritoDB from '../routers/apiDB/carritoApiDB'
 
-import home from '../routers/web/home';
-
+import home from '../routers/web/home'
 import faker from '../routers/faker/faker'
 
-// ---------------------  ENDPOINTS EXPRESS
+import passport from '../routers/passport/passport'
+
+// ---------------------  ENDPOINTS EXPRESS  ------------------------
 
 // GET '/' -> ENDPOINT INICIAL
-/*const PATH = '/';
+const PATH = '/';
 const callback = (request, response, next) => {
-    response.send({ mensaje: 'STORAGE PUEDE SER json, firebase, mongodb, mariadb, sqlite3, O VACIO TOMA POR DEFECTO MEMORIA! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' });
+	response.send({ mensaje: 'Bienvenido! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' });
 };
-app.get(PATH, callback);*/
+app.get(PATH, callback);
 
-app.get('/', (req, res) => {
-    res.redirect('/home')
-})
+//------------------------  STATIC  ------------------------
 
-//------------------------  STATIC
 app.use('/agregar', express.static('public'));
+
 // INDICAMOS QUE QUEREMOS CARGAR LOS ARCHIVOS ESTÁTICOS QUE SE ENCUENTRAN EN DICHA CARPETA(para EJS)
 app.use(express.static('./public/io'))
 
-//------------------------  ROUTERS
+//------------------------  ROUTERS  ------------------------
 
 app.use('/api/productos', productos)
 app.use('/api/carrito', carrito)
@@ -64,32 +60,31 @@ app.use('/apiDB/productos', productosDB)
 app.use('/apiDB/chat', chatDB)
 app.use('/apiDB/carrito', carritoDB)
 
-app.use('/', home)
-
-
+app.use('/home', home)
 app.use('/api/productos-test', faker)
 
+app.use('/passport', passport)
 
-//------------------------  RUTA METODO NO IMPLEMENTADO
+//------------------------  RUTA METODO NO IMPLEMENTADO  ------------------------
 
 app.use((req, res, next) => {
-    res.status(404).send({
-        error: -2,
-        descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
-    });
+	res.status(404).send({
+		error: -2,
+		descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
+	});
 });
-//------------------------  EJS
+
+//------------------------  EJS  ------------------------
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-//------------------------  ENCIENDO EL SERVER
+//------------------------  ENCIENDO EL SERVER  ------------------------
 const callbackInit = () => {
-    console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+	console.log(`Servidor corriendo en: http://localhost:${PORT}`);
 };
 
 httpServer.listen(process.env.PORT || PORT, callbackInit);
 
-//------------------------  MANEJO DE ERRORES
+//------------------------  MANEJO DE ERRORES  ------------------------
 httpServer.on("error", error => console.log(`Error en servidor ${error}`))
-
