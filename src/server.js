@@ -46,9 +46,8 @@ import faker from '../routers/faker/faker'
 
 import passport from '../routers/passport/passport'
 
-import random from '../routers/random/random'
-
 import info from '../routers/info/info'
+import randoms from '../routers/random/random'
 
 // ---------------------  ENDPOINTS EXPRESS  ------------------------
 
@@ -83,9 +82,8 @@ app.use('/api/productos-test', faker)
 
 app.use('/passport', passport)
 
-app.use('/api/random', random)
-
 app.use('/info', info)
+app.use('/api/randoms', randoms)
 
 //------------------------  RUTA METODO NO IMPLEMENTADO  ------------------------
 
