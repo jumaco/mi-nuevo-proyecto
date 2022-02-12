@@ -1,5 +1,6 @@
-const app = express();
-const PORT = 8080;
+const app = express()
+
+const config =require('./config.js')
 
 import express from 'express'
 
@@ -12,8 +13,21 @@ const io = new IOServer(httpServer)
 //GUARDO CÓMO ATRIBUTO LA INSTANCIA DEL SOCKET PARA PODER USARLA EN ROUTERS
 app.set('io', io)
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+
+//---------------------- SOLO PARA DESAFIO YARGS -----------------------------------------------------------------------------------------------
+const args = require('yargs/yargs')(process.argv.slice(2));
+
+args
+	.default({
+		modo: 'prod', puerto: 9090, debug: false
+	})
+	.alias({
+		m: 'modo', d: 'debug', p: 'puerto', '_': 'otros'
+	})
+	.argv;
 
 //----------------------  MÓDULOS DE DIRECCIONAMIENTO ROUTER  ------------------------
 
@@ -32,18 +46,22 @@ import faker from '../routers/faker/faker'
 
 import passport from '../routers/passport/passport'
 
+import random from '../routers/random/random'
+
+import info from '../routers/info/info'
+
 // ---------------------  ENDPOINTS EXPRESS  ------------------------
 
 // GET '/' -> ENDPOINT INICIAL
-const PATH = '/';
+const PATH = '/'
 const callback = (request, response, next) => {
-	response.send({ mensaje: 'Bienvenido! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' });
+	response.send({ mensaje: 'Bienvenido! DIRIGETE A /api/productos-test FAKER O /apiDB/chat NORMALIZACION' })
 };
-app.get(PATH, callback);
+app.get(PATH, callback)
 
 //------------------------  STATIC  ------------------------
 
-app.use('/agregar', express.static('public'));
+app.use('/agregar', express.static('public'))
 
 // INDICAMOS QUE QUEREMOS CARGAR LOS ARCHIVOS ESTÁTICOS QUE SE ENCUENTRAN EN DICHA CARPETA(para EJS)
 app.use(express.static('./public/io'))
@@ -65,6 +83,10 @@ app.use('/api/productos-test', faker)
 
 app.use('/passport', passport)
 
+app.use('/api/random', random)
+
+app.use('/info', info)
+
 //------------------------  RUTA METODO NO IMPLEMENTADO  ------------------------
 
 app.use((req, res, next) => {
@@ -76,15 +98,15 @@ app.use((req, res, next) => {
 
 //------------------------  EJS  ------------------------
 
-app.set('views', './views');
-app.set('view engine', 'ejs');
+app.set('views', './views')
+app.set('view engine', 'ejs')
 
 //------------------------  ENCIENDO EL SERVER  ------------------------
 const callbackInit = () => {
-	console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+	console.log(`Servidor corriendo en: http://${config.HOST}:${args.argv.puerto}, MODO:${config.NODE_ENV}, STORAGE:${config.STORAGE}`)
 };
 
-httpServer.listen(process.env.PORT || PORT, callbackInit);
+httpServer.listen(args.argv.puerto, callbackInit)
 
 //------------------------  MANEJO DE ERRORES  ------------------------
 httpServer.on("error", error => console.log(`Error en servidor ${error}`))

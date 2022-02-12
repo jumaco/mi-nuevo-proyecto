@@ -1,6 +1,6 @@
-require('dotenv').config()
+const config = require('../config.js')
 
-console.log('CASE', process.env.STORAGE)
+console.log('STORAGE INDEX DAO', process.env.STORAGE)
 
 import ProductosDaoArchivo from './productos/ProductosDaoArchivo.js'
 import CarritosDaoArchivo from './carritos/CarritosDaoArchivo.js'
@@ -18,69 +18,69 @@ import ChatDaoMemoria from './chat/ChatDaoMemoria.js'
 
 let productosDao
 
-if (process.env.storage === 'mongodb') {
+if (config.STORAGE === 'mongodb') {
 	productosDao = new ProductosDaoMongoDB()
 }
 
-if (process.env.storage === 'mongoRemote') {
+if (config.STORAGE === 'mongoRemote') {
 	productosDao = new ProductosDaoMongoDB()
 }
 
-if (process.env.storage === 'memoria') {
+if (config.STORAGE === 'memoria') {
 	productosDao = new ProductosDaoMemoria()
 }
 
-if (process.env.storage === 'firebase') {
+if (config.STORAGE === 'firebase') {
 	productosDao = new ProductosDaoFirebase()
 }
 
-if (process.env.storage === 'json') {
+if (config.STORAGE === 'file') {
 	productosDao = new ProductosDaoArchivo()
 }
 
 
 let carritosDao
 
-if (process.env.storage === 'mongodb') {
+if (config.STORAGE === 'mongodb') {
 	carritosDao = new CarritosDaoMongoDB()
 }
 
-if (process.env.storage === 'mongoRemote') {
+if (config.STORAGE === 'mongoRemote') {
 	carritosDao = new CarritosDaoMongoDB()
 }
 
-if (process.env.storage === 'memoria') {
+if (config.STORAGE === 'memoria') {
 	carritosDao = new CarritosDaoMemoria()
 }
 
-if (process.env.storage === 'firebase') {
+if (config.STORAGE === 'firebase') {
 	carritosDao = new CarritosDaoFirebase()
 }
 
-if (process.env.storage === 'json') {
+if (config.STORAGE === 'file') {
 	carritosDao = new CarritosDaoArchivo()
 }
 
 
 let chatDao
 
-if (process.env.storage === 'mongodb') {
+if (config.STORAGE === 'mongodb') {
 	chatDao = new ChatDaoMongoDB()
 }
 
-if (process.env.storage === 'mongoRemote') {
+if (config.STORAGE === 'mongoRemote') {
 	chatDao = new ChatDaoMongoDB()
 }
 
-if (process.env.storage === 'memoria') {
+if (config.STORAGE === 'memoria') {
 	chatDao = new ChatDaoMemoria()
 }
 
-if (process.env.storage === 'firebase') {
+if (config.STORAGE === 'firebase') {
 	chatDao = new ChatDaoFirebase()
 }
 
-if (process.env.storage === 'json') {
+if (config.STORAGE === 'file') {
 	chatDao = new ChatDaoArchivo()
 }
 
