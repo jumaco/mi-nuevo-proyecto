@@ -51,8 +51,9 @@ module.exports = {
 		},
 		pool: { min: 0, max: 7 }
 	},
-	NODE_ENV: process.env.NODE_ENV || 'production',
-	HOST: process.env.HOST || '127.0.0.1',
-	PORT: process.env.PORT || 8090,
-	STORAGE: process.env.STORAGE || 'mongoRemote'
+	NODE_ENV: process.env.NODE_ENV || 'development',
+	HOST: process.env.HOST || 'localhost',
+	PORT: process.env.PORT || 8080,
+	STORAGE: process.env.STORAGE || 'file',
+	MODE: process.env.MODE || 'FORK'
 }

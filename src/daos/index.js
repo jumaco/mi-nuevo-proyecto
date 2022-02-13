@@ -1,7 +1,5 @@
 const config = require('../config.js')
 
-console.log('STORAGE INDEX DAO', process.env.STORAGE)
-
 import ProductosDaoArchivo from './productos/ProductosDaoArchivo.js'
 import CarritosDaoArchivo from './carritos/CarritosDaoArchivo.js'
 import ProductosDaoFirebase from './productos/ProductosDaoFirebase.js'
@@ -83,7 +81,5 @@ if (config.STORAGE === 'firebase') {
 if (config.STORAGE === 'file') {
 	chatDao = new ChatDaoArchivo()
 }
-
-console.log({ productosDao }, { carritosDao }, { chatDao })
 
 export { productosDao, carritosDao, chatDao }

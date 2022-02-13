@@ -10,13 +10,10 @@ let opciones = process.env.storage === 'mongodb' ? config.mongodb.options : conf
 class ContenedorMongoDb {
 	
 	constructor(colection, esquema) {
-		console.log('Construyendo desde ContenedorMongoDb')
 		this.coleccion = mongoose.model(colection, esquema)
 		this.init()
-		console.log({ colection }, { esquema })
 	}
 	async init() {
-		console.log('Iniciando conexion desde ContenedorMongoDb')
 		try {
 			if (!this.conection) {
 				this.conection = await mongoose.connect(conexion, opciones)
@@ -62,10 +59,7 @@ class ContenedorMongoDb {
 	};
 	async updateById(nuevoElem, id) {
 		try {
-			console.log('Modificando producto contenedor mongo')
-			console.log(nuevoElem)
 			const { matchedCount, modifiedCount } = await this.coleccion.replaceOne({ '_id': id }, nuevoElem)
-			console.log(matchedCount, modifiedCount)
 			if (matchedCount == 0 || modifiedCount == 0) {
 				return null
 			} else {
@@ -78,7 +72,6 @@ class ContenedorMongoDb {
 		}
 	};
 	async deleteById(id) {
-		console.log('Boorando desde contenedor')
 		try {
 			const {deletedCount} = await this.coleccion.deleteOne({ '_id': id })
 			if (!deletedCount) {

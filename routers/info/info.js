@@ -3,25 +3,7 @@ const { Router } = express
 
 const router = new Router()
 
-// const args = require('yargs/yargs')(process.argv.slice(2));
-
-// args
-// 	.default({
-// 		modo: 'prod', puerto: 8080, debug: false
-// 	})
-// 	.alias({
-// 		m: 'modo', d: 'debug', p: 'puerto', '_': 'otros'
-// 	});
-
-// const argumentos = { ...args.argv };
-
-// argumentos.otros = argumentos._;
-// delete argumentos._;
-// delete argumentos.d;
-// delete argumentos.m;
-// delete argumentos.p;
-
-// console.log(argumentos);
+const numCPUs = require('os').cpus().length
 
 const processargv = () => {
 	let argv = []
@@ -32,7 +14,20 @@ const processargv = () => {
 }
 
 router.get('/', (req, res) => {
+
+	const { app } = req
+	let args = app.get('args');
+	const argumentos = { ...args.argv };
+
+	argumentos.otros = argumentos._;
+	delete argumentos._;
+	delete argumentos.d;
+	delete argumentos.m;
+	delete argumentos.p;
+	delete argumentos.s;
+
 	let info = {
+		date: new Date().toLocaleString(),
 		arguments: processargv(),
 		argumentsYargs: argumentos,
 		folder: process.cwd(),
@@ -41,7 +36,8 @@ router.get('/', (req, res) => {
 		node: process.versions.node,
 		title: process.title,
 		path: process.execPath,
-		memoria: `${process.memoryUsage().rss / 1024 / 1000} MB rss`
+		memoria: `${process.memoryUsage().rss / 1024 / 1000} MB rss`,
+		cpus: numCPUs
 	}
 	res.json(info)
 })

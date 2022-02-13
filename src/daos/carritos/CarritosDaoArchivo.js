@@ -23,7 +23,6 @@ class CarritosDaoArchivo extends ContenedorArchivo {
 				const arrayObtenido = JSON.parse(contenido);
 				const existeCarro = arrayObtenido.find((item => item.id.toString() === id));
 				if (existeCarro) {
-					console.log('carro EXISTENTE');
 					let indexCarro = arrayObtenido.findIndex((item => item.id.toString() === id));
 					const existeProductoEnCarro = arrayObtenido[indexCarro].productos.find((item => item.id === object.id));
 					if (existeProductoEnCarro) {
@@ -59,18 +58,15 @@ class CarritosDaoArchivo extends ContenedorArchivo {
 				if (object.id.toString() === id) {
 					encontrado = true;
 					if (id_prod) {
-						console.log('Ingreso a producto del carrito');
 						encontrado = false;
 						object.productos.map((ele) => {
 							if (ele.id.toString() === id_prod) {
 								encontrado = true;
-								console.log('Ingreso a borrar producto');
 								let eleIndice = object.productos.indexOf(ele);
 								object.productos.splice(eleIndice, 1);
 							}
 						})
 					} else {
-						console.log('Borrando carrito');
 						let indice = arrayObtenido.indexOf(object);
 						arrayObtenido.splice(indice, 1);
 					}

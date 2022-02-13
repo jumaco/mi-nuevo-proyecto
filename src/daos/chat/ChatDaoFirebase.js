@@ -46,20 +46,16 @@ class ChatDaoFirebase extends ContenedorFirebase {
 	// ELIMINA EL CARRITO CON EL ID INGRESADO O PRODUCTO EN CARRITO
 	async deleteById(id, id_prod = 0) {
 		try {
-			console.log('Ingreso a borrar');
 			const contenido = await this.getById(id)
-			console.log({ contenido });
 			let encontrado = false;
 
 			if (id_prod) {
-				console.log('Ingreso a producto del carrito');
 				contenido.productos.map((object) => {					
 					encontrado = false;
 					contenido.productos.map((ele) => {
 						if (ele.id === id_prod) {
 							// ELIMINA EL PRODUCTO EN CARRITO CON EL ID_PROD INGRESADO
 							encontrado = true;
-							console.log('Ingreso a borrar producto');
 							let eleIndice = contenido.productos.indexOf(ele);
 							contenido.productos.splice(eleIndice, 1);
 						}
@@ -68,7 +64,6 @@ class ChatDaoFirebase extends ContenedorFirebase {
 				})
 			} else {
 				// ELIMINA EL CARRITO CON EL ID INGRESADO
-				console.log('Borrando carrito');
 				this.coleccion.doc(id).delete()
 				encontrado = true;
 			}

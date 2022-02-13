@@ -2,7 +2,6 @@ const fs = require('fs')
 
 class ContenedorArchivo {
 	constructor(file) {
-		console.log('Construyendo desde ContenedorArchivo')
 		this.file = file;
 	}
 	//LECTURA DEL FILE
@@ -45,7 +44,6 @@ class ContenedorArchivo {
 			const contenido = await this.read();
 			const arrayObtenido = JSON.parse(contenido);
 			let objectEncontrado = null;
-			console.log(id)
 			arrayObtenido.map((object) => {
 				if (object.id.toString() === id) {
 					objectEncontrado = object;
