@@ -1,4 +1,4 @@
-import ContenedorMemoria from "../../contenedores/ContenedorMemoria.js"
+const ContenedorMemoria = require("../../contenedores/ContenedorMemoria.js") 
 
 class ChatDaoMemoria extends ContenedorMemoria {
 
@@ -98,4 +98,4 @@ class ChatDaoMemoria extends ContenedorMemoria {
 	}
 }
 
-export default ChatDaoMemoria
+module.exports = ChatDaoMemoria

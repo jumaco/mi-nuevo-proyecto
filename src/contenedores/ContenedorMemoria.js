@@ -54,4 +54,4 @@ class ContenedorMemoria {
 	}
 }
 
-export default ContenedorMemoria;
+module.exports = ContenedorMemoria;

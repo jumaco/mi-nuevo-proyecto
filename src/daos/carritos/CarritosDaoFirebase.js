@@ -1,4 +1,4 @@
-import ContenedorFirebase from "../../contenedores/ContenedorFirebase.js"
+const ContenedorFirebase = require("../../contenedores/ContenedorFirebase.js") 
 
 
 class CarritosDaoFirebase extends ContenedorFirebase {
@@ -93,4 +93,4 @@ class CarritosDaoFirebase extends ContenedorFirebase {
 	}
 }
 
-export default CarritosDaoFirebase
+module.exports = CarritosDaoFirebase

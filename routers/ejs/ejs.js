@@ -32,4 +32,4 @@ router.get('/list-productos', async (req, res) => {
 // AMBAS PÁGINAS CONTARÁN CON UN BOTÓN QUE REDIRIJA A LA OTRA.
 
 
-export default router;
+module.exports = router;

@@ -1,13 +1,13 @@
 const express = require('express')
 const { Router } = express
 
-import session from 'express-session'
-import MongoStore from 'connect-mongo'
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
-import config from '../../src/config.js'
+const config = require('../../src/config.js')
 
-import passportMiddle, { checkAuthentication } from '../../middlewares/passportMiddle'
-import routes from './routes'
+const { passportMiddle, checkAuthentication } = require('../../middlewares/passportMiddle')
+const routes = require('./routes')
 
 const router = new Router()
 
@@ -54,4 +54,4 @@ router.get('/ruta-protegida', checkAuthentication, (req, res) => {
 //FAIL ROUTE
 router.get('*', routes.failRoute);
 
-export default router
+module.exports = router

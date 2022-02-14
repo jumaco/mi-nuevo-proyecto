@@ -1,5 +1,5 @@
-// const express = require('express');
-import express from 'express'
+const express = require('express');
+// import express from 'express'
 const isAdmin = require('../../middlewares/authAdmin');
 const { Router } = express
 
@@ -9,8 +9,8 @@ const router = new Router()
 // const { options } = require('../../options/mariaDB');
 // const contenedor = new ContenedorDB(options, 'productos');
 
-import { productosDao as productosApi } from '../../src/daos/index.js'
-// const { productosDao: productosApi } = require('../../src/daos/index.js')
+// import { productosDao as productosApi } from '../../src/daos/index.js'
+const { productosDao: productosApi } = require('../../src/daos/index.js')
 
 
 //---------ENDPOINTS---------
@@ -98,4 +98,4 @@ router.delete('/:id', isAdmin, async (req, res) => {
 	}
 });
 
-export default router;
+module.exports = router;

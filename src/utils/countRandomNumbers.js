@@ -1,4 +1,4 @@
-import getRandomInt from './getRandomInt.js';
+const getRandomInt = require('./getRandomInt.js')
 
 process.on('message', (cant) => {
 	const numbers = [];

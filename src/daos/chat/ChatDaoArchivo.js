@@ -1,5 +1,5 @@
 const fs = require('fs')
-import ContenedorArchivo from "../../contenedores/ContenedorArchivo.js"
+const ContenedorArchivo = require("../../contenedores/ContenedorArchivo.js") 
 
 class ChatDaoArchivo extends ContenedorArchivo {
     constructor() {
@@ -26,4 +26,4 @@ class ChatDaoArchivo extends ContenedorArchivo {
     }
 }
 
-export default ChatDaoArchivo
+module.exports = ChatDaoArchivo

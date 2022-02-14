@@ -1,5 +1,5 @@
-import { Router } from 'express'
-import { fork } from 'child_process'
+const { Router } = require('express') 
+const { fork } = require('child_process') 
 
 const DEFAULT_CANT = 100000000;
 
@@ -23,4 +23,4 @@ router.get('/', (req, res) => {
 
 });
 
-export default router;
+module.exports = router;

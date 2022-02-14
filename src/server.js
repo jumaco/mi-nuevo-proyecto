@@ -1,11 +1,10 @@
+const config = require('./config.js')
+const express = require( 'express')
+
 const app = express()
 
-const config = require('./config.js')
-
-import express from 'express'
-
-import { Server as HttpServer } from 'http'
-import { Server as IOServer } from 'socket.io'
+const { Server : HttpServer } = require('http')
+const { Server : IOServer } = require('socket.io') 
 
 const cluster = require('cluster') /* https://nodejs.org/dist/latest-v14.x/docs/api/cluster.html */
 
@@ -36,23 +35,23 @@ args
 
 // ----------------------  MÓDULOS DE DIRECCIONAMIENTO ROUTER  ----------------------
 
-import productos from '../routers/api/productoApi'
-import carrito from '../routers/api/carritoApi'
-import chatRouter from '../routers/webSoket/chat/chat'
-import ejsRouter from '../routers/ejs/ejs'
-import formIoRouter from '../routers/webSoket/productos/form'
+const productos = require('../routers/api/productoApi') 
+const carrito = require('../routers/api/carritoApi') 
+const chatRouter = require('../routers/webSoket/chat/chat') 
+const ejsRouter = require('../routers/ejs/ejs') 
+const formIoRouter = require('../routers/webSoket/productos/form') 
 
-import productosDB from '../routers/apiDB/productoApiDB'
-import chatDB from '../routers/apiDB/chatApiDB'
-import carritoDB from '../routers/apiDB/carritoApiDB'
+const productosDB = require('../routers/apiDB/productoApiDB') 
+const chatDB = require('../routers/apiDB/chatApiDB') 
+const carritoDB = require('../routers/apiDB/carritoApiDB') 
 
-import home from '../routers/web/home'
-import faker from '../routers/faker/faker'
+const home = require('../routers/web/home') 
+const faker = require('../routers/faker/faker') 
 
-import passport from '../routers/passport/passport'
+const passport = require('../routers/passport/passport') 
 
-import info from '../routers/info/info'
-import randoms from '../routers/random/random'
+const info = require('../routers/info/info') 
+const randoms = require('../routers/random/random') 
 
 // ----------------------  ENDPOINTS EXPRESS  ----------------------
 
@@ -115,7 +114,7 @@ const isCluster = args.argv.mode === 'CLUSTER'
 if (cluster.isMaster && isCluster) {
 		console.log(`Cantidad de procesadores: ${numCPUs}`)
 
-	console.log(`Servidor corriendo en: http://${config.HOST}:${args.argv.port}, ENTORNO: ${args.argv.env}, STORAGE: ${args.argv.storage}, PID MASTER ${process.pid}`)
+	console.log(`Servidor corriendo en: http://${config.HOST}:${args.argv.port}, ENTORNO: ${args.argv.env}, STORAGE: ${args.argv.storage}, PID MASTER ${process.pid}, MODO: ${args.argv.mode}`)
 
 	// console.log(`PID MASTER ${process.pid}`)
 

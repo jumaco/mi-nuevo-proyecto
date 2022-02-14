@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config')
-import { asPOJO, renameField, removeField } from '../utils/objectUtils.js'
+const { asPOJO, renameField, removeField } = require('../utils/objectUtils.js') 
 
 require('dotenv').config()
 
@@ -92,4 +92,4 @@ class ContenedorMongoDb {
 	};
 };
 
-export default ContenedorMongoDb
+module.exports = ContenedorMongoDb

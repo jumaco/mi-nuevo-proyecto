@@ -3,7 +3,7 @@ const { Router } = express
 
 const router = new Router()
 
-import faker from 'faker'
+const faker = require('faker') 
 faker.locale = 'es'
 
 router.get('/', (req, res) => {
@@ -16,4 +16,4 @@ router.get('/', (req, res) => {
     res.json(productos)
 })
 
-export default router
+module.exports = router

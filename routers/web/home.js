@@ -1,12 +1,12 @@
 const express = require('express')
 const { Router } = express
 
-import cookieParser from 'cookie-parser'
-import session from 'express-session'
-import MongoStore from 'connect-mongo'
+const cookieParser = require('cookie-parser') 
+const session = require('express-session') 
+const MongoStore = require('connect-mongo') 
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
-import config from '../../src/config.js'
+const config = require('../../src/config.js') 
 
 const router = new Router()
 
@@ -48,4 +48,4 @@ router.use('/logout', (req, res) => {
     })
 })
 
-export default router
+module.exports = router

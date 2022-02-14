@@ -1,18 +1,18 @@
 const config = require('../config.js')
 
-import ProductosDaoArchivo from './productos/ProductosDaoArchivo.js'
-import CarritosDaoArchivo from './carritos/CarritosDaoArchivo.js'
-import ProductosDaoFirebase from './productos/ProductosDaoFirebase.js'
-import CarritosDaoFirebase from './carritos/CarritosDaoFirebase.js'
-import ProductosDaoMongoDB from './productos/ProductosDaoMongoDB.js'
-import CarritosDaoMongoDB from './carritos/CarritosDaoMongoDB.js'
-import ProductosDaoMemoria from './productos/ProductosDaoMemoria.js'
-import CarritosDaoMemoria from './carritos/CarritosDaoMemoria.js'
+const ProductosDaoArchivo = require('./productos/ProductosDaoArchivo.js') 
+const CarritosDaoArchivo = require('./carritos/CarritosDaoArchivo.js') 
+const ProductosDaoFirebase = require('./productos/ProductosDaoFirebase.js') 
+const CarritosDaoFirebase = require('./carritos/CarritosDaoFirebase.js') 
+const ProductosDaoMongoDB = require('./productos/ProductosDaoMongoDB.js') 
+const CarritosDaoMongoDB = require('./carritos/CarritosDaoMongoDB.js') 
+const ProductosDaoMemoria = require('./productos/ProductosDaoMemoria.js') 
+const CarritosDaoMemoria = require('./carritos/CarritosDaoMemoria.js') 
 
-import ChatDaoArchivo from './chat/ChatDaoArchivo.js'
-import ChatDaoFirebase from './chat/ChatDaoFirebase.js'
-import ChatDaoMongoDB from './chat/ChatDaoMongoDB.js'
-import ChatDaoMemoria from './chat/ChatDaoMemoria.js'
+const ChatDaoArchivo = require('./chat/ChatDaoArchivo.js') 
+const ChatDaoFirebase = require('./chat/ChatDaoFirebase.js') 
+const ChatDaoMongoDB = require('./chat/ChatDaoMongoDB.js') 
+const ChatDaoMemoria = require('./chat/ChatDaoMemoria.js') 
 
 let productosDao
 
@@ -82,4 +82,4 @@ if (config.STORAGE === 'file') {
 	chatDao = new ChatDaoArchivo()
 }
 
-export { productosDao, carritosDao, chatDao }
+module.exports = { productosDao, carritosDao, chatDao }

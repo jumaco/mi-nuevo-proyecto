@@ -6,7 +6,7 @@ const router = new Router()
 // const Carrito = require('../../models/CarritoClass');
 // const carrito = new Carrito('./db/carrito.json');
 
-import { carritosDao as carritosApi } from '../../src/daos/index.js'
+const { carritosDao : carritosApi } = require('../../src/daos/index.js') 
 
 //---------ENDPOINTS---------
 
@@ -105,4 +105,4 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
-export default router;
+module.exports = router;

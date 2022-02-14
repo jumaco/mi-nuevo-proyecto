@@ -128,4 +128,4 @@ class ContenedorArchivo {
 	}
 };
 
-export default ContenedorArchivo;
+module.exports = ContenedorArchivo;

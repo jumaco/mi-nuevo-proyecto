@@ -1,6 +1,6 @@
 const passportMiddle = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
-import bCrypt from 'bcrypt'
+const bCrypt = require('bcrypt')
 
 const User = require('../src/daos/users/users')
 
@@ -86,13 +86,13 @@ passportMiddle.deserializeUser((id, done) => {
 	User.findById(id, done);
 });
 
-export function checkAuthentication(req, res, next) {
-	if(req.isAuthenticated()){
+function checkAuthentication(req, res, next) {
+	if (req.isAuthenticated()) {
 		next()
 	}
-	else{
+	else {
 		res.redirect('/passport/login')
 	}
 }
 
-export default passportMiddle;
+module.exports = { passportMiddle, checkAuthentication }

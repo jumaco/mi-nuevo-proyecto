@@ -1,6 +1,6 @@
-import ContenedorMongoDb from "../../contenedores/ContenedorMongoDB.js"
-import { asPOJO, renameField, removeField } from '../../utils/objectUtils.js'
-
+const ContenedorMongoDb = require("../../contenedores/ContenedorMongoDB.js") 
+const { asPOJO, renameField, removeField } = require('../../utils/objectUtils.js'
+) 
 class ChatDaoMongoDB extends ContenedorMongoDb {
 
 	constructor() {
@@ -28,4 +28,4 @@ class ChatDaoMongoDB extends ContenedorMongoDb {
 	}
 }
 
-export default ChatDaoMongoDB
+module.exports = ChatDaoMongoDB

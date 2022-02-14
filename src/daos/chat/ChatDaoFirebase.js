@@ -1,4 +1,4 @@
-import ContenedorFirebase from "../../contenedores/ContenedorFirebase.js"
+const ContenedorFirebase = require("../../contenedores/ContenedorFirebase.js") 
 
 
 class ChatDaoFirebase extends ContenedorFirebase {
@@ -93,4 +93,4 @@ class ChatDaoFirebase extends ContenedorFirebase {
 	}
 }
 
-export default ChatDaoFirebase
+module.exports = ChatDaoFirebase

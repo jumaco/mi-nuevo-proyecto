@@ -25,6 +25,8 @@ router.get('/', (req, res) => {
 	delete argumentos.m;
 	delete argumentos.p;
 	delete argumentos.s;
+	delete argumentos.e;
+
 
 	let info = {
 		date: new Date().toLocaleString(),
@@ -43,4 +45,4 @@ router.get('/', (req, res) => {
 })
 
 
-export default router
+module.exports = router

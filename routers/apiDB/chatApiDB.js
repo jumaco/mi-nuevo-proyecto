@@ -12,7 +12,7 @@ const router = new Router()
 // const { options } = require('../../options/mariaDB');
 // const contenedor = new ProductoDB(options, 'productos')
 
-import { productosDao as productosApi } from '../../src/daos/index.js'
+const { productosDao : productosApi } = require('../../src/daos/index.js') 
 
 // ---------Knex SQLite--------------------------------
 // const ChatDB = require('../../models/ChatKnexClass')
@@ -21,12 +21,12 @@ import { productosDao as productosApi } from '../../src/daos/index.js'
 
 //--------------Persistencia CHAT DAO -----------------
 
-import { chatDao as chatApi } from '../../src/daos/index.js'
+const { chatDao : chatApi } = require('../../src/daos/index.js') 
 
 
 //-------------------- NORMALIZACIÓN DE MENSAJES --------------------
 
-import { normalize, schema, } from 'normalizr'
+const { normalize, schema, } = require('normalizr') 
 
 // Definimos un esquema de autor
 const schemaAuthor = new schema.Entity('author', {}, { idAttribute: 'email' });
@@ -105,4 +105,4 @@ router.get('/', (req, res) => {
 	})
 });
 
-export default router;
+module.exports = router;
