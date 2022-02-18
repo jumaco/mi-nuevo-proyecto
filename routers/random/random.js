@@ -6,7 +6,7 @@ const DEFAULT_CANT = 100000000;
 const router = new Router()
 
 router.get('/health', (req, res) => {
-	res.json({ date: new Date().toLocaleString() })
+	res.json({ date: new Date().toLocaleString(), pid: process.pid })
 });
 
 router.get('/', (req, res) => {
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 		if (msg == 'listo') {
 			computo.send(cant);
 		} else {
-			res.send(msg);
+			res.send({_pid: process.pid, randoms: {...msg}});
 		}
 	});
 

@@ -1,38 +1,42 @@
 # EJECUTAR SERVIDORES NODE
-### vista info `/info`
-```
+### Vista info GET `/info`
+<br>
+
+```json
 {
-    "date": "13/2/2022 18:58:33",
+    "date": "18/2/2022 19:13:59",
     "arguments": [
-        "1 => -m",
-        "2 => CLUSTER"
+        "1 => -p",
+        "2 => 8080",
+        "3 => -m",
+        "4 => FORK"
     ],
     "argumentsYargs": {
-        "mode": "CLUSTER",
-        "env": "development",
         "port": 8080,
+        "mode": "FORK",
+        "env": "development",
         "debug": false,
         "storage": "file",
-        "$0": "src\\server.js",
+        "$0": "C:\\Users\\Juan\\AppData\\Roaming\\npm\\node_modules\\pm2\\lib\\ProcessContainerFork.js",
         "otros": []
     },
     "folder": "E:\\20610-programación-backend-20210906T233257Z-001\\mi-nuevo-proyecto",
     "plataform": "win32",
-    "pid": 15624,
+    "pid": 7452,
     "node": "14.16.1",
-    "title": "MINGW64:/e/20610-programación-backend-20210906T233257Z-001/mi-nuevo-proyecto",
+    "title": "node",
     "path": "C:\\Program Files\\nodejs\\node.exe",
-    "memoria": "155.392 MB rss",
+    "memoria": "70.58 MB rss",
     "cpus": 8
 }
 ```
-# Servidor nodemon 
-### MODO FORK (DEFAULT)
+# Servidor + nodemon 
+### MODO FORK p8080 <span style="color:orange">(DEFAULT)</span>
 ### `nodemon -r esm ./src/server.js` 
 ```
 Servidor corriendo en: http://localhost:8080, ENTORNO: development, STORAGE: file, PID WORKER 16300, MODO: FORK
 ```
-### MODO CLUSTER
+### MODO <span style="color:Aquamarine">CLUSTER</span> p8080
 ### `nodemon -r esm ./src/server.js -m CLUSTER` 
 ```
 Cantidad de procesadores: 8
@@ -62,14 +66,17 @@ node.exe                     15832 Console                    1   111.048 KB
 node.exe                     18644 Console                    1   111.628 KB
 node.exe                     21120 Console                    1   110.640 KB
 ```
+***
+<br>
 
-# Ejecutar servidor mediante Forever
-### Intsalar FOREVER en forma global
+# Ejecutar servidor mediante <span style="color:Aquamarine">FOREVER</span>
+___
+### Instalar FOREVER en forma global
 `npm i -g forever`
-
-### MODO FORK (DEFAULT)
-### `forever start -c "node -r esm" ./src/server.js`
+## MODO <span style="color:Aquamarine">FORK</span> p8080 (<span style="color:orange">DEFAULT</span>)
+### `forever start ./src/server.js`
 ```
+
 warn:    --minUptime not set. Defaulting to: 1000ms
 warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
 info:    Forever processing file: ./src/server.js
@@ -98,8 +105,8 @@ data:    [0] 5T_o   node -r esm   ...\server.js   8540           12368    ...\.f
 ```
 
 
-### MODO CLUSTER
-### `forever start -c "node -r esm" ./src/server.js -m CLUSTER` 
+## MODO <span style="color:Aquamarine">CLUSTER</span> (p8080)
+### `forever start ./src/server.js -m CLUSTER` 
 ```
 warn:    --minUptime not set. Defaulting to: 1000ms
 warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
@@ -118,6 +125,7 @@ data:        uid  command     script                  forever pid   id       log
 data:    [0] kKtc node -r esm ..\server.js -m CLUSTER 16716         18420    ...\.forever\kKtc.log    0:0:1:44.986999999999995
 ```
 ## Número de procesos tomados por node
+___
 ### `tasklist /fi "imagename eq node.exe"`
 ```
 Nombre de imagen               PID Nombre de sesión Núm. de ses Uso de memor
@@ -151,8 +159,8 @@ $ forever list
 info:    No forever processes running
 ```
 
-## Iniciar servidor modo watch
-`forever start -w -c "node -r esm" ./src/server.js`
+# Iniciar servidor modo <span style="color:Aquamarine">WATCH</span> (p8080, FORK)
+`forever start -w ./src/server.js`
 ```
 $ forever start -w -c "node -r esm" ./src/server.js
 warn:    --minUptime not set. Defaulting to: 1000ms
@@ -182,11 +190,14 @@ info:    Forever stopped processes:
 data:        uid  command     script                                                                             forever pid   id logfile                         uptime
 data:    [0] WikH node -r esm E:\20610-programación-backend-20210906T233257Z-001\mi-nuevo-proyecto\src\server.js 19504   11576    C:\Users\Juan\.forever\WikH.log 0:0:0:45.773
 ```
-# Ejecutar servidor mediante PM2
+********************************
+<br>
+
+# Ejecutar servidor mediante <span style="color:Aquamarine">PM2</span>
 ### Intsalar PM2 en forma global
 `npm i -g pm2`
 
-## Procesos por PM2 FORK
+## Procesos por PM2 FORK p8080 <span style="color:orange">(Default))</span>
 `pm2 start ./src/server.js`
 ```
 $ pm2 start ./src/server.js
@@ -197,34 +208,274 @@ $ pm2 start ./src/server.js
 ┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
 │ id  │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
 ├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-│ 0   │ server    │ default     │ 1.0.0   │ fork    │ 5988     │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ Juan     │ disabled │
+│ 0   │ server    │ default     │ 1.0.0   │ fork    │ 11748    │ 0s     │ 0    │ online    │ 0%       │ 39.1mb   │ Juan     │ disabled │
 └─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
 
 ```
  `pm2 list`
  ```
- $ pm2 list
+$ pm2 list
 ┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
 │ id  │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
 ├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-│ 0   │ server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 15   │ errored   │ 0%       │ 0b       │ Juan     │ disabled │
+│ 0   │ server    │ default     │ 1.0.0   │ fork    │ 11748    │ 33s    │ 0    │ online    │ 0%       │ 64.9mb   │ Juan     │ disabled │
 └─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
  ```
 
-## Procesos por SO
+### Procesos por SO
 ```
 Nombre de imagen               PID Nombre de sesión Núm. de ses Uso de memor
 ========================= ======== ================ =========== ============
-node.exe                      2868 Console                    1    33.740 KB
+node.exe                     10928 Console                    1    33.328 KB
+node.exe                     11748 Console                    1    66.332 KB
+PS E:\20610-programación-backend-20210906T233257Z-001\mi-nuevo-proyecto> 
+```
+```
+$ pm2 stop default
+[PM2] Applying action stopProcessId on app [default](ids: [ 0 ])
+[PM2] [server](0) ✓
+┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ Juan     │ disabled │
+└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+$ pm2 delete default
+[PM2] Applying action deleteProcessId on app [default](ids: [ 0 ])
+[PM2] [server](0) ✓
+┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
 ```
 
-## Procesos por PM2 CLUSTER + WATCH
-`pm2 start --name="cluster-dev"-w -i max ./src/server.js -m CLUSTER`
+___
+## Procesos por PM2 <span style="color:Aquamarine">NAME</span> + <span style="color:Aquamarine">CLUSTER</span> + <span style="color:Aquamarine">WATCH</span> p8080
+___
+`pm2 start --name="cluster-dev" -w -i max ./src/server.js`
+
+```
+$ pm2 start --name="cluster-dev" --watch -i max ./src/server.js
+[PM2] Starting E:\20610-programación-backend-20210906T233257Z-001\mi-nuevo-proyecto\src\server.js in cluster_mode (0 instance)
+[PM2] Done.
+┌─────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 17052    │ 6s     │ 0    │ online    │ 40.6%    │ 98.3mb   │ Juan     │ enabled  │
+│ 1   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 16736    │ 6s     │ 0    │ online    │ 70.4%    │ 97.9mb   │ Juan     │ enabled  │
+│ 2   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 16156    │ 5s     │ 0    │ online    │ 82.8%    │ 96.1mb   │ Juan     │ enabled  │
+│ 3   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 8364     │ 5s     │ 0    │ online    │ 82.8%    │ 95.7mb   │ Juan     │ enabled  │
+│ 4   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 11840    │ 4s     │ 0    │ online    │ 78.1%    │ 94.9mb   │ Juan     │ enabled  │
+│ 5   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 2480     │ 4s     │ 0    │ online    │ 79.8%    │ 89.8mb   │ Juan     │ enabled  │
+│ 6   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 16748    │ 4s     │ 0    │ online    │ 79.7%    │ 86.6mb   │ Juan     │ enabled  │
+│ 7   │ cluster-dev    │ default     │ 1.0.0   │ cluster │ 5652     │ 3s     │ 0    │ online    │ 78.2%    │ 72.1mb   │ Juan     │ enabled  │
+└─────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+```
+## Número de procesos tomados por node
+___
+### `tasklist /fi "imagename eq node.exe"`
+```
+Nombre de imagen               PID Nombre de sesión Núm. de ses Uso de memor
+========================= ======== ================ =========== ============
+node.exe                     10928 Console                    1    46.692 KB
+node.exe                      6236 Console                    1    51.532 KB
+node.exe                     17548 Console                    1    67.228 KB
+node.exe                      9908 Console                    1    67.492 KB
+node.exe                      2192 Console                    1    67.724 KB
+node.exe                      8920 Console                    1    66.828 KB
+node.exe                     15888 Console                    1    67.108 KB
+node.exe                     17172 Console                    1    68.624 KB
+node.exe                     16872 Console                    1    67.156 KB
+node.exe                     16724 Console                    1    67.788 KB
+```
+
+<br>
+
+# <span style="color:Aquamarine">NGINX</span>
+
+### Inicio NGINX
+``./enginex.exe``
+### Redirijo las req hacia /api/randoms > port 8081
+#### path "./enginx1.221.6/conf/nginx.config"
+```nginx
+    http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    # upstream balance_app {
+    #     # server 127.0.0.1:8081;
+    #     # server 127.0.0.1:8082 weight=3;
+    #     server 127.0.0.1:8082;
+    #     server 127.0.0.1:8083;
+    #     server 127.0.0.1:8084;
+    #     server 127.0.0.1:8085;
+    # }
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        # location / {
+        #     root   html;
+        #     index  index.html index.htm;
+        # }
+
+        location / {
+            proxy_pass http://localhost:8080;
+        }
+
+        location /api/randoms {
+            proxy_pass http://localhost:8081;
+            # proxy_pass http://balance_app;
+        }
+```
+## Ejecuto servidor <span style="color:Aquamarine">CLUSTER NATIVO</span> 
+
+### Todas las consultas, redirigirlas a un servidor individual escuchando en el puerto 8080 FORK
+``pm2 start ./src/server.js --name="forkNode" -- -p 8080 -m FORK``
+```
+$ pm2 start ./src/server.js --name="forkNode" -- -p 8080 -m FORK
+[PM2] Starting E:\20610-programación-backend-20210906T233257Z-001\mi-nuevo-proyecto\src\server.js in fork_mode (1 instance)
+[PM2] Done.
+┌─────┬─────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name        │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼─────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ forkNode    │ default     │ 1.0.0   │ fork    │ 7452     │ 0s     │ 0    │ online    │ 0%       │ 38.6mb   │ Juan     │ disabled │
+└─────┴─────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+```
+
+----------------------------------------------------------------
+### Las consultas a /api/randoms a un cluster de servidores escuchando en el puerto 8081
+
+``pm2 start ./src/server.js --name="clusterNode" -- -p 8081 -m CLUSTER``
+```
+$ pm2 start ./src/server.js --name="clusterNode" -- -p 8081 -m CLUSTER
+[PM2] Starting E:\20610-programación-backend-20210906T233257Z-001\mi-nuevo-proyecto\src\server.js in fork_mode (1 instance)
+[PM2] Done.
+┌─────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1   │ clusterNode    │ default     │ 1.0.0   │ fork    │ 10308    │ 0s     │ 0    │ online    │ 0%       │ 40.7mb   │ Juan     │ disabled │
+│ 0   │ forkNode       │ default     │ 1.0.0   │ fork    │ 7452     │ 61s    │ 0    │ online    │ 0%       │ 64.0mb   │ Juan     │ disabled │
+└─────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+```
+
+
+## <span style="color:Aquamarine">BALANCEADOR</span> NGINX
+``./enginex.exe``
+### Redirijo las req hacia /api/randoms equitativamente a los puertos 8082, 8083, 8084, 8085
+#### path "./enginx1.221.6/conf/nginx.config"
+```nginx
+    http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    upstream balance_app {
+        # server 127.0.0.1:8081;
+        # server 127.0.0.1:8082 weight=3;
+        server 127.0.0.1:8082;
+        server 127.0.0.1:8083;
+        server 127.0.0.1:8084;
+        server 127.0.0.1:8085;
+    }
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        # location / {
+        #     root   html;
+        #     index  index.html index.htm;
+        # }
+
+        location / {
+            proxy_pass http://localhost:8080;
+        }
+
+        location /api/randoms {
+            # proxy_pass http://localhost:8081;
+            proxy_pass http://balance_app;
+        }
+```
+## Ejecuto nuevas instancias de servidor FORK en nuevos puertos
+
+``pm2 start ./src/server.js --name="forkNode2" -- -p 8082 -m FORK``
+
+``pm2 start ./src/server.js --name="forkNode3" -- -p 8083 -m FORK``
+
+``pm2 start ./src/server.js --name="forkNode4" -- -p 8084 -m FORK``
+
+``pm2 start ./src/server.js --name="forkNode5" -- -p 8085 -m FORK``
+
+```
+$ pm2 ls
+┌─────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1   │ clusterNode    │ default     │ 1.0.0   │ fork    │ 10308    │ 40m    │ 0    │ online    │ 0%       │ 68.8mb   │ Juan     │ disabled │
+│ 0   │ forkNode       │ default     │ 1.0.0   │ fork    │ 7452     │ 41m    │ 0    │ online    │ 0%       │ 72.9mb   │ Juan     │ disabled │
+│ 2   │ forkNode2      │ default     │ 1.0.0   │ fork    │ 1948     │ 13m    │ 0    │ online    │ 0%       │ 70.6mb   │ Juan     │ disabled │
+│ 3   │ forkNode3      │ default     │ 1.0.0   │ fork    │ 10696    │ 13m    │ 0    │ online    │ 0%       │ 69.4mb   │ Juan     │ disabled │
+│ 4   │ forkNode4      │ default     │ 1.0.0   │ fork    │ 15136    │ 12m    │ 0    │ online    │ 0%       │ 69.5mb   │ Juan     │ disabled │
+│ 5   │ forkNode5      │ default     │ 1.0.0   │ fork    │ 4016     │ 12m    │ 0    │ online    │ 0%       │ 70.2mb   │ Juan     │ disabled │
+└─────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+```
+
+## COMANDOS NGINX
+---
+ ### Apagado rápido.
+ `./nginx.exe -s stop`  
+ ### Cierre más elegante.
+ ``./nginx.exe -s quit``  
+ ### Reiniciar el servidor al cambiar la configuración, iniciar nuevos procesos de trabajo con una nueva configuración, cierre elegante de los procesos de trabajo antiguos. 
+ ``./nginx.exe -s reload``  
+ ### Reabrir logs de archivos.
+ ``./nginx.exe -s reopen`` 
+ 
+ <br>
 
 
 
 
-# Motores de plantillas
+
+# <span style="color:Aquamarine">INICIO</span>
 ## Primera entrega Proyecto Final
 
 ### En el directorio del proyecto, ejecutar:
