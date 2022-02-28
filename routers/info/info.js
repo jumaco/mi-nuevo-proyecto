@@ -1,4 +1,5 @@
 const express = require('express')
+const logger = require('./../../logger');
 const { Router } = express
 
 const router = new Router()
@@ -14,6 +15,7 @@ const processargv = () => {
 }
 
 router.get('/', (req, res) => {
+	logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
 
 	const { app } = req
 	let args = app.get('args');
@@ -41,6 +43,9 @@ router.get('/', (req, res) => {
 		memoria: `${process.memoryUsage().rss / 1024 / 1000} MB rss`,
 		cpus: numCPUs
 	}
+	
+	// console.log(info)
+
 	res.json(info)
 })
 

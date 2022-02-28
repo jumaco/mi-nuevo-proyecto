@@ -1,3 +1,154 @@
+# LOGGERS Y GZIP
+
+### Ruta /api/random con y sin compression
+
+### `npm i compression`
+
+`'/api/randoms'`
+
+```
+randoms	200	document	Otros	12.6 kB	4.43 s
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 12401
+ETag: W/"3071-IpmvqrJ8nGR/Xm7Y3DKulkxTy7M"
+Date: Mon, 28 Feb 2022 00:00:37 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+```
+
+`'/api/randomsGzip'`
+```
+randomsGzip	200	document	Otros	4.7 kB	4.63 s
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+ETag: W/"3088-3zuSa9DMYyTuHoU1maiAQbC9YfA"
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Date: Mon, 28 Feb 2022 00:00:28 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+```
+
+## LOGGER WINSTON 
+`npm i winston`
+
+## ARTILLERY
+### `npm i -g artillery` (global)
+<br>
+
+### Ejecutamos el Servidor en modo profiler
+### ``node --prof ./src/server.js``
+<br>
+
+### En otro terminal ejecutamos ARTILLERY
+#### *para la ruta '/info' comentamos en el codigo la linea bloqueante 'console.log(info)'
+`artillery quick --count 50 -n 20 http://localhost:8080/info > result_info_NoBloq.txt`
+
+
+```javascript
+router.get('/', (req, res) => {
+	logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
+	
+    ...
+    ...
+
+	// console.log(info)
+
+	res.json(info)
+})
+```
+### REALIZAMOS EL PROFILING
+``node --prof-process NoBloq-v8.log > result_prof-nobloq.txt``
+```
+Statistical profiling result from NoBloq-v8.log, (2309 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   2107   91.3%          C:\Windows\SYSTEM32\ntdll.dll
+    196    8.5%          C:\Program Files\nodejs\node.exe
+      1    0.0%          C:\Windows\System32\KERNEL32.DLL
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      1    0.0%   20.0%  LazyCompile: *stat internal/modules/cjs/loader.js:132:14
+      1    0.0%   20.0%  LazyCompile: *resolve path.js:130:10
+      1    0.0%   20.0%  LazyCompile: *normalizeString path.js:52:25
+      1    0.0%   20.0%  LazyCompile: *nextPart fs.js:1635:31
+      1    0.0%   20.0%  LazyCompile: *dirname path.js:582:10
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+      5    0.2%  100.0%  JavaScript
+      0    0.0%    0.0%  C++
+      9    0.4%  180.0%  GC
+   2304   99.8%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+```
+
+
+#### *para la ruta '/info' DEScomentamos en el codigo la linea bloqueante 'console.log(info)'
+`artillery quick --count 50 -n 20 http://localhost:8080/info > result_info_Bloq.txt`
+```javascript
+router.get('/', (req, res) => {
+	logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
+	
+    ...
+    ...
+
+	console.log(info)
+
+	res.json(info)
+})
+```
+### REALIZAMOS EL PROFILING
+``node --prof-process Bloq-v8.log > result_prof-bloq.txt``
+```
+Statistical profiling result from Bloq-v8.log, (1853 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   1444   77.9%          C:\Windows\SYSTEM32\ntdll.dll
+    401   21.6%          C:\Program Files\nodejs\node.exe
+      1    0.1%          C:\Windows\System32\KERNELBASE.dll
+      1    0.1%          C:\Windows\System32\KERNEL32.DLL
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      3    0.2%   50.0%  LazyCompile: *resolve path.js:130:10
+      1    0.1%   16.7%  LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      1    0.1%   16.7%  LazyCompile: *dirname path.js:582:10
+      1    0.1%   16.7%  LazyCompile: *<anonymous> E:\20610-programaci├│n-backend-20210906T233257Z-001\mi-nuevo-proyecto\node_modules\yargs-parser\build\index.cjs:696:48
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+      6    0.3%  100.0%  JavaScript
+      0    0.0%    0.0%  C++
+     12    0.6%  200.0%  GC
+   1847   99.7%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+```
+
+# AUTOCANNON Y 0X
+
+
+<br>
+
 # EJECUTAR SERVIDORES NODE
 ### Vista info GET `/info`
 <br>

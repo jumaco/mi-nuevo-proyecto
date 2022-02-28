@@ -8,6 +8,11 @@ const { Server: IOServer } = require('socket.io')
 
 const cluster = require('cluster')
 
+// ---------------------- COMPRESIÓN DE GZIP ----------------------
+const compression = require('compression')
+// app.use(compression())
+//------------------------------------------------------------------
+
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
@@ -78,6 +83,8 @@ app.use('/api/productos-test', faker)
 app.use('/passport', passport)
 app.use('/info', info)
 app.use('/api/randoms', randoms)
+app.use('/api/randomsGzip', compression(), randoms)
+
 
 // ----------------------  RUTA METODO NO IMPLEMENTADO  ----------------------
 
