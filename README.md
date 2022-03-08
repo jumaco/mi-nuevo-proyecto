@@ -38,6 +38,13 @@ Transfer-Encoding: chunked
 ## LOGGER WINSTON 
 `npm i winston`
 
+#### El log se ejecuta en `/info`, level "info" por consola, level warn por archivo.
+
+```
+[winston] Attempt to write logs with no transports {"message":"PATH: /, METHOD: GET, MESSAGE: response success","level":"info"}
+[winston] Attempt to write logs with no transports {"message":"PATH: /, METHOD: GET, MESSAGE: response success","level":"info"}
+```
+
 ## ARTILLERY
 ### `npm i -g artillery` (global)
 <br>
@@ -58,8 +65,7 @@ router.get('/', (req, res) => {
     ...
     ...
 
-	console.log(info)
-
+	// console.log(info)
 	res.json(info)
 })
 ```
@@ -145,7 +151,9 @@ Statistical profiling result from Bloq-v8.log, (1853 ticks, 0 unaccounted, 0 exc
 ```
 
 # AUTOCANNON Y 0X
+## AUTOCANNON
 ## Sin consol.log
+#### *para la ruta '/info' comentamos en el codigo la linea bloqueante 'console.log(info)'
 ```
 $ npm test
 
@@ -177,6 +185,7 @@ Req/Bytes counts sampled every 0.001 seconds.
 ```
 
 ## Con console-log
+#### *para la ruta '/info' descomentamos en el codigo la linea bloqueante 'console.log(info)'
 ```
 $ npm test
 
@@ -205,6 +214,19 @@ Req/Bytes counts sampled every 0.001 seconds.
 
 37k requests in 20.04s, 24.4 MB read
 ```
+## 0x FLAME GRAPH
+### EJECUTAMOS ES SERVIDOR MEDIAN 0x
+`npm start` (`0x ./src/server.js`)
+### EN OTRA CONSOLA EJECUTAMOS EL TEST (AUTOCANNON)
+`npm test` (`node ./test/autocannon-test.js`)
+#### NO Bloqueante `/info`
+#### *para la ruta '/info' comentamos en el codigo la linea bloqueante 'console.log(info)'
+![](/graph/bloq-0x.png)
+
+#### bloqueante `/info`
+#### *para la ruta '/info' descomentamos en el codigo la linea bloqueante 'console.log(info)'
+![](/graph/noBloq-0x.png)
+
 
 
 <br>
