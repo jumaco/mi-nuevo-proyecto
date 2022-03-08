@@ -2,10 +2,10 @@
   "name": "mi-nuevo-proyecto",
   "version": "1.0.0",
   "description": "proyecto backend",
-  "main": "server.js",
+  "main": "./src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/server.js",
+    "test": "node ./test/autocannon-test.js",
+    "start": "0x ./src/server.js",
     "dev": "set NODE_ENV=development&& set HOST=localhost&& set PORT=8000&& nodemon -r esm ./src/server.js",
     "prod": "set NODE_ENV=production&& set HOST=localhost&& set PORT=9000&& node -r esm ./src/server.js"
   },
@@ -45,5 +45,8 @@
     "uuid": "^8.3.2",
     "winston": "^3.6.0",
     "yargs": "^17.3.1"
+  },
+  "devDependencies": {
+    "autocannon": "^7.7.0"
   }
 }
