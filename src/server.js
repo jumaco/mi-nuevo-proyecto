@@ -10,7 +10,7 @@ const cluster = require('cluster')
 
 // ---------------------- COMPRESIÓN DE GZIP ----------------------
 const compression = require('compression')
-// app.use(compression())
+app.use(compression())
 //------------------------------------------------------------------
 
 const httpServer = new HttpServer(app)
@@ -56,11 +56,14 @@ const randoms = require('../routers/random/random')
 // ----------------------  ENDPOINTS EXPRESS  ----------------------
 
 // GET '/' -> ENDPOINT INICIAL
-const PATH = '/'
-const callback = (request, response, next) => {
-	response.json( `Bienvenido! DIRIGETE A: /info /api/randoms /api/randoms/health` )
-};
-app.get(PATH, callback)
+
+// const PATH = '/'
+// const callback = (request, response, next) => {
+// 	response.json( `Bienvenido! DIRIGETE A: /info /api/randoms /api/randoms/health` )
+// };
+// app.get(PATH, callback)
+
+app.get('/form-io')
 
 // ----------------------  STATIC  ----------------------
 app.use('/agregar', express.static('public'))

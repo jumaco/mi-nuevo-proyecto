@@ -5,9 +5,9 @@
   "main": "./src/server.js",
   "scripts": {
     "test": "node ./test/autocannon-test.js",
-    "start": "0x ./src/server.js",
-    "dev": "set NODE_ENV=development&& set HOST=localhost&& set PORT=8000&& nodemon -r esm ./src/server.js",
-    "prod": "set NODE_ENV=production&& set HOST=localhost&& set PORT=9000&& node -r esm ./src/server.js"
+    "start": "node ./src/server.js",
+    "dev": "set NODE_ENV=development&& set HOST=localhost&& set PORT=8000&& nodemon ./src/server.js",
+    "prod": "set NODE_ENV=production&& set HOST=localhost&& set PORT=9000&& node ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
     "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
-    "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "faker": "^5.5.3",

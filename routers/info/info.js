@@ -29,7 +29,6 @@ router.get('/', (req, res) => {
 	delete argumentos.s;
 	delete argumentos.e;
 
-
 	let info = {
 		date: new Date().toLocaleString(),
 		arguments: processargv(),
@@ -43,9 +42,6 @@ router.get('/', (req, res) => {
 		memoria: `${process.memoryUsage().rss / 1024 / 1000} MB rss`,
 		cpus: numCPUs
 	}
-	
-	// console.log(info)
-
 	res.json(info)
 })
 
