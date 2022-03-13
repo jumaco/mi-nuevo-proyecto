@@ -39,19 +39,21 @@ args
 
 // ----------------------  MÓDULOS DE DIRECCIONAMIENTO ROUTER  ----------------------
 
-const productos = require('../routers/api/productoApi')
-const carrito = require('../routers/api/carritoApi')
-const chatRouter = require('../routers/webSoket/chat/chat')
-const ejsRouter = require('../routers/ejs/ejs')
-const formIoRouter = require('../routers/webSoket/productos/form')
-const productosDB = require('../routers/apiDB/productoApiDB')
-const chatDB = require('../routers/apiDB/chatApiDB')
-const carritoDB = require('../routers/apiDB/carritoApiDB')
-const home = require('../routers/web/home')
-const faker = require('../routers/faker/faker')
-const passport = require('../routers/passport/passport')
-const info = require('../routers/info/info')
-const randoms = require('../routers/random/random')
+const productos = require('./routers/api/productoApi')
+const carrito = require('./routers/api/carritoApi')
+const chatRouter = require('./routers/webSoket/chat/chat')
+const ejsRouter = require('./routers/ejs/ejs')
+const formIoRouter = require('./routers/webSoket/productos/form')
+const productosDB = require('./routers/apiDB/productoApiDB')
+const chatDB = require('./routers/apiDB/chatApiDB')
+const carritoDB = require('./routers/apiDB/carritoApiDB')
+const home = require('./routers/web/home')
+const faker = require('./routers/faker/faker')
+const passport = require('./routers/passport/passport')
+const info = require('./routers/info/info')
+const randoms = require('./routers/random/random')
+
+
 
 // ----------------------  ENDPOINTS EXPRESS  ----------------------
 
@@ -63,15 +65,13 @@ const randoms = require('../routers/random/random')
 // };
 // app.get(PATH, callback)
 
-app.get('/form-io')
+// app.get('/form-io')
 
-// ----------------------  STATIC  ----------------------
-app.use('/agregar', express.static('public'))
-
-// INDICAMOS QUE QUEREMOS CARGAR LOS ARCHIVOS ESTÁTICOS QUE SE ENCUENTRAN EN DICHA CARPETA(para EJS)
-app.use(express.static('./public/io'))
+// // ----------------------  STATIC  ----------------------
+// app.use('/agregar', express.static('public'))
 
 // ----------------------  ROUTERS  ----------------------
+app.use('/', passport)
 
 app.use('/api/productos', productos)
 app.use('/api/carrito', carrito)
@@ -81,30 +81,34 @@ app.use('/form-io', formIoRouter)
 app.use('/apiDB/productos', productosDB)
 app.use('/apiDB/chat', chatDB)
 app.use('/apiDB/carrito', carritoDB)
-app.use('/home', home)
+// app.use('/home', inicio)
 app.use('/api/productos-test', faker)
-app.use('/passport', passport)
+
 app.use('/info', info)
 app.use('/api/randoms', randoms)
 app.use('/api/randomsGzip', compression(), randoms)
 
-
-// ----------------------  RUTA METODO NO IMPLEMENTADO  ----------------------
-
-app.use((req, res, next) => {
-	res.status(404).send({
-		error: -2,
-		descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
-	});
-});
-
 // ----------------------  EJS  ----------------------
 
-app.set('views', './views')
+app.set('views', './src/views')
 app.set('view engine', 'ejs')
+// INDICAMOS QUE QUEREMOS CARGAR LOS ARCHIVOS ESTÁTICOS QUE SE ENCUENTRAN EN DICHA CARPETA
+app.use(express.static('./public'))
+// app.use('/agregar', express.static('public'))
+
+// const { productosDao: productosApi } = require('./daos/index.js')
+// const admin = false
+
+// app.get('/', async (req, res) => {
+// 	const productos = await productosApi.getAll();
+// 	res.render("./pages", {
+// 		productos: productos,
+// 		hayProductos: productos.length,
+// 		isAdmin: admin
+// 	});
+// });
 
 // ----------------------  ENCIENDO EL SERVER  ----------------------
-
 const callbackInit = () => {
 	console.log(`Servidor corriendo en: http://${config.HOST}:${args.argv.port}, ENTORNO: ${args.argv.env}, STORAGE: ${args.argv.storage}, PID WORKER ${process.pid}, MODO: ${args.argv.mode}`)
 };
@@ -113,7 +117,6 @@ const numCPUs = require('os').cpus().length
 const isCluster = args.argv.mode === 'CLUSTER'
 /* MASTER */
 if (cluster.isMaster && isCluster) {
-	console.log(`Cantidad de procesadores: ${numCPUs}`)
 	console.log(`Servidor corriendo en: http://${config.HOST}:${args.argv.port}, ENTORNO: ${args.argv.env}, STORAGE: ${args.argv.storage}, PID MASTER ${process.pid}, MODO: ${args.argv.mode}`)
 
 	for (let i = 0; i < numCPUs; i++) {
@@ -131,3 +134,63 @@ else {
 	// ----------------------  MANEJO DE ERRORES  ----------------------
 	httpServer.on("error", error => console.log(`Error en servidor ${error}`))
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------  RUTA METODO NO IMPLEMENTADO  ----------------------
+
+app.use((req, res, next) => {
+	res.status(404).send({
+		error: -2,
+		descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
+	});
+});

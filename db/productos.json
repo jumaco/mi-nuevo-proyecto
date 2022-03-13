@@ -98,5 +98,35 @@
     "stock": "999",
     "id": 16,
     "timestamp": "1642629758724"
+  },
+  {
+    "title": "Cable Hdmi ",
+    "description": "Cable Hdmi A Hdmi 3 Metros 1080p Full Hd Alta Velocidad !",
+    "code": "D37M-9HTW7-G5PV",
+    "price": "355",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_890570-MLA31652615860_082019-O.webp",
+    "stock": "99",
+    "id": 17,
+    "timestamp": "1646881706389"
+  },
+  {
+    "title": "Juego Llaves De Tubo",
+    "description": "Juego Llaves De Tubo 108 Piezas Con Estuche Klatter",
+    "code": "6679-S2JL9-55WB",
+    "price": "9999",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_683639-MLA43762277076_102020-O.webp",
+    "stock": "54",
+    "id": 18,
+    "timestamp": "1647199893313"
+  },
+  {
+    "title": "Juego Llaves De Tubo",
+    "description": "Juego Llaves De Tubo 108 Piezas Con Estuche Klatter",
+    "code": "6679-S2JL9-55WB",
+    "price": "9999",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_683639-MLA43762277076_102020-O.webp",
+    "stock": "54",
+    "id": 19,
+    "timestamp": "1647200128785"
   }
 ]

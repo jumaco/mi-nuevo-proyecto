@@ -1,0 +1,46 @@
+<div class="container">
+
+	<div class="jumbotron mt-1">
+		<h1 class="display-4">eCommerce</h1>
+		<hr class="my-4">
+		<% if(hayProductos){ %>
+
+			<div class="card-columns">
+
+				<%productos.forEach(function(producto) {%>
+
+					<div class="card">
+						<img src=<%=producto.thumbnail%> alt="<%=producto.title%>" class="card-img-top" >
+						<div class="card-body">
+							<h4 class="card-title"><%=producto.title%></h4>
+							<h5>$<%=producto.price%></h5>
+							<p class="card-text"><%=producto.description%></p>
+						</div>
+						<div class="card-footer">
+							<small class="text-muted"><%=producto.code%></small>
+						</div>
+					</div>
+
+				<%});
+		%>
+
+			</div>
+			<hr class="mb-4">
+			<% if(isAdmin){ %>
+				<a href="/ejs" type="button" class="btn btn-success">Crear un nuevo producto</a>
+				<%};
+			%>
+	</div>
+
+		<% } else{ %>
+			<h3 class="alert alert-warning">No hay productos</h3>
+		<% } %>
+
+</div>
+
+</div>
+
+
+
+</div>
+</div>

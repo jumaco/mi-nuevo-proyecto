@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-class ContenedorArchivo {
+class Carrito {
 	constructor(file) {
 		this.file = file;
 	}
@@ -9,43 +9,54 @@ class ContenedorArchivo {
 		const contenido = await fs.promises.readFile(`./${this.file}`, 'utf8');
 		return contenido;
 	}
-	// RECIBE UN OBJETO, LO GUARDA EN EL ARCHIVO, DEVUELVE EL ID ASIGNADO.
-	async save(object) {
+	// RECIBE UN CARRITO, LO GUARDA EN EL ARCHIVO, DEVUELVE EL ID ASIGNADO.
+	async save(object = {}, id = 0) {
 		try {
 			const contenido = await this.read();
-			let array = []
+			let carro = {};
+			let array = [];
+			let arrayProductos = [];
 			if (contenido === '') {
-				object.id = 1;
-				object.timestamp = Date.now().toString();
-				array.push(object);
+				carro.id = 1;
+				arrayProductos.push(object);
+				carro.timestamp = Date.now().toString();
+				carro.productos = arrayProductos;
+				array.push(carro);
 			} else {
 				const arrayObtenido = JSON.parse(contenido);
-				const existe = arrayObtenido.find((item => item.id === object.id))
-				if (existe) {
-					let indexObject = arrayObtenido.findIndex((item => item.id === object.id))
-					arrayObtenido[indexObject] = object
+				const existeCarro = arrayObtenido.find((item => item.id === id));
+				if (existeCarro) {
+					let indexCarro = arrayObtenido.findIndex((item => item.id === id));
+					const existeProductoEnCarro = arrayObtenido[indexCarro].productos.find((item => item.id === object.id));
+					if (existeProductoEnCarro) {
+						console.log(existeProductoEnCarro);
+					} else {
+						arrayObtenido[indexCarro].productos.push(object);
+					}
 				} else {
-					object.id = arrayObtenido[arrayObtenido.length - 1].id + 1;
-					object.timestamp = Date.now().toString();
-					arrayObtenido.push(object);
+					carro.id = arrayObtenido[arrayObtenido.length - 1].id + 1;
+					arrayProductos.push(object);
+					carro.timestamp = Date.now().toString();
+					carro.productos = arrayProductos;
+					arrayObtenido.push(carro);
 				}
 				array = arrayObtenido;
 			}
 			const objectsString = JSON.stringify(array, null, 2);
 			await fs.promises.writeFile(`./${this.file}`, objectsString);
-			return object.id;
+			return carro.id;
 		} catch (error) {
 			console.log('error al ejecutar', { error })
 		}
 	}
-	// RECIBE UN ID Y DEVUELVE EL OBJETO CON ESE ID, O NULL SI NO ESTÁ.
+	// RECIBE UN ID(ID DE CARRITO) Y DEVUELVE EL CARRITO CON ESE ID, O NULL SI NO ESTÁ.
 	async getById(id) {
 		try {
 			const contenido = await this.read();
 			const arrayObtenido = JSON.parse(contenido);
-			let objectEncontrado = null;
+			let objectEncontrado = null
 			arrayObtenido.map((object) => {
-				if (object.id.toString() === id) {
+				if (object.id === id) {
 					objectEncontrado = object;
 				}
 			})
@@ -54,10 +65,10 @@ class ContenedorArchivo {
 			console.log('error al ejecutar', { error })
 		}
 	}
-	// DEVUELVE UN ARRAY CON LOS OBJETOS PRESENTES EN EL ARCHIVO.
+	// DEVUELVE UN ARRAY CON TODOS LOS CARRITOS PRESENTES EN EL ARCHIVO.
 	async getAll() {
 		try {
-			const contenido = await fs.promises.readFile(`./${this.file}`, 'utf8')
+			const contenido = await this.read();
 			if (contenido === '') {
 				return [];
 			} else {
@@ -68,31 +79,30 @@ class ContenedorArchivo {
 			console.log('error al ejecutar', { error })
 		};
 	};
-	// CONST OBTENERRANDOMINFERIOR = (MIN, MAX) => MATH.ROUND(MATH.RANDOM() * (MAX - MIN + 1)) + MIN;
-	async getRandom() {
-		const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+	// ELIMINA DEL ARCHIVO EL CARRITO CON EL ID INGRESADO.
+	async deleteById(id, id_prod = 0) {
 		try {
 			const contenido = await this.read();
 			const arrayObtenido = JSON.parse(contenido);
-			const posicionRandom = random(0, arrayObtenido.length - 1);
-			return (arrayObtenido[posicionRandom]);
-		} catch (error) {
-			console.log('error al ejecutar', { error })
-		}
-	}
-	// ELIMINA DEL ARCHIVO EL OBJETO CON EL ID BUSCADO.
-	async deleteById(id) {
-		try {
-			const contenido = await this.read();
-			const arrayObtenido = JSON.parse(contenido);
-			let encontrado = false
+			let encontrado = false;
 			arrayObtenido.map((object) => {
-				if (object.id.toString() === id) {
-					encontrado = true
-					let indice = arrayObtenido.indexOf(object);
-					arrayObtenido.splice(indice, 1);
-				};
-			});
+				if (object.id === id) {
+					encontrado = true;
+					if (id_prod) {
+						encontrado = false;
+						object.productos.map((ele) => {
+							if (ele.id === id_prod) {
+								encontrado = true;
+								let eleIndice = object.productos.indexOf(ele);
+								object.productos.splice(eleIndice, 1);
+							}
+						})
+					} else {
+						let indice = arrayObtenido.indexOf(object);
+						arrayObtenido.splice(indice, 1);
+					}
+				}
+			})
 			const arrayString = JSON.stringify(arrayObtenido, null, 2);
 			await fs.promises.writeFile(`./${this.file}`, arrayString);
 			return encontrado
@@ -100,7 +110,7 @@ class ContenedorArchivo {
 			console.log('error al ejecutar', { error });
 		};
 	};
-	// ELIMINA TODOS LOS OBJETOS PRESENTES EN EL ARCHIVO.
+	// ELIMINA TODOS LOS CARRITOS PRESENTES EN EL ARCHIVO.
 	async deleteAll() {
 		try {
 			await fs.promises.writeFile(`./${this.file}`, '')
@@ -108,7 +118,7 @@ class ContenedorArchivo {
 			console.log('error al ejecutar', { error })
 		}
 	}
-	// RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID.
+	// RECIBE Y ACTUALIZA UN CARRITO SEGÚN SU ID.
 	async updateById(prod, id) {
 		try {
 			const producto = await this.getById(id);
@@ -127,4 +137,4 @@ class ContenedorArchivo {
 	}
 };
 
-module.exports = ContenedorArchivo;
+module.exports = Carrito;

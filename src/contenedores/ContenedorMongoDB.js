@@ -12,11 +12,13 @@ class ContenedorMongoDb {
 	constructor(colection, esquema) {
 		this.coleccion = mongoose.model(colection, esquema)
 		this.init()
+		this.estado = false
 	}
 	async init() {
 		try {
 			if (!this.conection) {
 				this.conection = await mongoose.connect(conexion, opciones)
+				this.estado = true
 			}
 		} catch (error) {
 			console.log('error al ejecutar', { error })
