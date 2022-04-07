@@ -1,0 +1,27 @@
+a {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+  }
+  
+  a:link {
+    color: #000000;
+  }
+  
+  a:visited {
+    color: #2e2e2e;
+  }
+  
+  a:focus {
+    text-decoration: none;
+    outline: none;
+  }
+  
+  a:hover {
+    text-decoration: none;
+    outline: none;
+  }
+  
+  a:active {
+    color: #353535;
+  }

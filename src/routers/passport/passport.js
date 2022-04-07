@@ -12,7 +12,6 @@ const routes = require('./routes')
 const router = new Router()
 
 router.use(session({
-	// Persistencia por redis database
 	store: MongoStore.create({
 		mongoUrl: config.mongoRemote.host,
 		mongoOptions: advancedOptions
@@ -22,7 +21,7 @@ router.use(session({
 	saveUninitialized: false,
 	rolling: true,
 	cookie: {
-		maxAge: 60000
+		maxAge: 300000
 	}
 }))
 

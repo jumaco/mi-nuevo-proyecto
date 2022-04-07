@@ -10,30 +10,46 @@
 				<%productos.forEach(function(producto) {%>
 
 					<div class="card">
-						<img src=<%=producto.thumbnail%> alt="<%=producto.title%>" class="card-img-top" >
+						<a href="/productos/<%=producto.id%>">
+							<img src=<%=producto.thumbnail%> alt="<%=producto.title%>" class="card-img-top" >
+						</a>
 						<div class="card-body">
-							<h4 class="card-title"><%=producto.title%></h4>
-							<h5>$<%=producto.price%></h5>
-							<p class="card-text"><%=producto.description%></p>
+							<a href="/productos/<%=producto.id%>">
+							<h4 class="card-title">
+								<%=producto.title%>
+							</h4>
+							</a>
+							<h5>$<%=producto.price%>
+							</h5>
+							<p class="card-text">
+								<%=producto.excerpt%>
+							</p>
 						</div>
+						<a class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title=""
+							data-original-title="Add to cart">
+							<i class="fa fa-shopping-cart"></i>
+
+							<a class="btn btn-primary btn-rounded">Buy Now</a>
+						</a>
+
 						<div class="card-footer">
-							<small class="text-muted"><%=producto.code%></small>
+							<small class="text-muted">
+								<%=producto.code%>
+							</small>
 						</div>
 					</div>
 
-				<%});
-		%>
+					<%}); %>
 
 			</div>
 			<hr class="mb-4">
 			<% if(isAdmin){ %>
 				<a href="/ejs" type="button" class="btn btn-success">Crear un nuevo producto</a>
-				<%};
-			%>
+				<%}; %>
 	</div>
 
-		<% } else{ %>
-			<h3 class="alert alert-warning">No hay productos</h3>
+	<% } else{ %>
+		<h3 class="alert alert-warning">No hay productos</h3>
 		<% } %>
 
 </div>

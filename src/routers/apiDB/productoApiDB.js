@@ -12,6 +12,7 @@ const { productosDao: productosApi } = require('../../daos/index.js')
 router.get('/', async (req, res) => {
 	try {
 		const productos = await productosApi.getAll();
+		console.log(productos)
 		res.json(productos);
 	} catch (err) {
 		console.log({ err })

@@ -128,5 +128,25 @@
     "stock": "54",
     "id": 19,
     "timestamp": "1647200128785"
+  },
+  {
+    "title": "Computadora Pc",
+    "description": "Computadora Pc Cpu Solarmax Intel Core I5 10ma 16gb 480g Ssd",
+    "code": "CBHB-BGZ4D-PWXN",
+    "price": "75500",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_716872-MLA49307289597_032022-O.webp",
+    "stock": "65",
+    "id": 20,
+    "timestamp": "1647550278326"
+  },
+  {
+    "title": "Computadora Pc",
+    "description": "Computadora Pc Cpu Solarmax Intel Core I5 10ma 16gb 480g Ssd",
+    "code": "CBHB-BGZ4D-PWXN",
+    "price": "76800",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_716872-MLA49307289597_032022-O.webp",
+    "stock": "23",
+    "id": 21,
+    "timestamp": "1647550387608"
   }
 ]

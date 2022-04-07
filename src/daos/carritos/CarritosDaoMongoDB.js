@@ -1,5 +1,5 @@
-const ContenedorMongoDb = require("../../contenedores/ContenedorMongoDB.js") 
-const { asPOJO, renameField, removeField } = require('../../utils/objectUtils.js') 
+const ContenedorMongoDb = require("../../contenedores/ContenedorMongoDB.js")
+const { asPOJO, renameField, removeField } = require('../../utils/objectUtils.js')
 
 class CarritosDaoMongoDB extends ContenedorMongoDb {
 
@@ -7,10 +7,11 @@ class CarritosDaoMongoDB extends ContenedorMongoDb {
 		super('carritos', {
 			productos: { type: [], required: true },
 			timestamp: { type: String, required: false },
+			uId: { type: String, required: false }
 		})
 	}
 
-	async save(object = {}, id = '') {
+	async save(object = {}, id = '', uId) {
 		try {
 			let carro = {};
 			let array = [];
@@ -20,6 +21,7 @@ class CarritosDaoMongoDB extends ContenedorMongoDb {
 					...object,
 					count: 1
 				});
+				carro.uId = uId;
 				carro.timestamp = Date.now().toString();
 				carro.productos = arrayProductos;
 				array.push(carro);
@@ -52,6 +54,19 @@ class CarritosDaoMongoDB extends ContenedorMongoDb {
 		}
 	}
 
+	async getByUid(uId) {
+		try {
+			const docs = await this.coleccion.find({ 'uId': uId }, { __v: 0 })
+			if (docs.length == 0) {
+				return null
+			} else {
+				const result = renameField(asPOJO(docs[0]), '_id', 'id')
+				return result
+			}
+		} catch (error) {
+			throw new Error(`Error al listar por uId: ${error}`)
+		}
+	};
 
 	// ELIMINA EL CARRITO CON EL ID INGRESADO O PRODUCTO EN CARRITO
 	async deleteById(id, id_prod = 0) {

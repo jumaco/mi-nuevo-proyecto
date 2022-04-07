@@ -36,6 +36,7 @@ function getSignup(req, res) {
 
 function postLogin(req, res) {
 	res.redirect('/')
+	// console.log('RES', res.req.user)
 }
 
 
@@ -56,7 +57,7 @@ function getFailsignup(req, res) {
 
 function getLogout(req, res) {
 	req.logout();
-	res.render('./pages/logout');
+	res.render('./pages/logout', {isAuthenticated: req.isAuthenticated()} );
 }
 
 

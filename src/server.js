@@ -52,61 +52,34 @@ const faker = require('./routers/faker/faker')
 const passport = require('./routers/passport/passport')
 const info = require('./routers/info/info')
 const randoms = require('./routers/random/random')
-
-
-
-// ----------------------  ENDPOINTS EXPRESS  ----------------------
-
-// GET '/' -> ENDPOINT INICIAL
-
-// const PATH = '/'
-// const callback = (request, response, next) => {
-// 	response.json( `Bienvenido! DIRIGETE A: /info /api/randoms /api/randoms/health` )
-// };
-// app.get(PATH, callback)
-
-// app.get('/form-io')
-
-// // ----------------------  STATIC  ----------------------
-// app.use('/agregar', express.static('public'))
-
+const mensajes = require('./routers/mesagges/mesagges')
+const product = require('./routers/web/product')
+const cart = require('./routers/web/cart')
 // ----------------------  ROUTERS  ----------------------
 app.use('/', passport)
 
 app.use('/api/productos', productos)
 app.use('/api/carrito', carrito)
 app.use('/chat', chatRouter)
-app.use('/ejs', ejsRouter)
+app.use('/productos', ejsRouter)
 app.use('/form-io', formIoRouter)
 app.use('/apiDB/productos', productosDB)
 app.use('/apiDB/chat', chatDB)
 app.use('/apiDB/carrito', carritoDB)
-// app.use('/home', inicio)
 app.use('/api/productos-test', faker)
-
+app.use('/home', home)
 app.use('/info', info)
 app.use('/api/randoms', randoms)
 app.use('/api/randomsGzip', compression(), randoms)
-
+app.use('/mensajes', mensajes)
+app.use('/product', product)
+app.use('/cart', cart)
 // ----------------------  EJS  ----------------------
 
 app.set('views', './src/views')
 app.set('view engine', 'ejs')
 // INDICAMOS QUE QUEREMOS CARGAR LOS ARCHIVOS ESTÁTICOS QUE SE ENCUENTRAN EN DICHA CARPETA
 app.use(express.static('./public'))
-// app.use('/agregar', express.static('public'))
-
-// const { productosDao: productosApi } = require('./daos/index.js')
-// const admin = false
-
-// app.get('/', async (req, res) => {
-// 	const productos = await productosApi.getAll();
-// 	res.render("./pages", {
-// 		productos: productos,
-// 		hayProductos: productos.length,
-// 		isAdmin: admin
-// 	});
-// });
 
 // ----------------------  ENCIENDO EL SERVER  ----------------------
 const callbackInit = () => {
@@ -135,62 +108,11 @@ else {
 	httpServer.on("error", error => console.log(`Error en servidor ${error}`))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ----------------------  RUTA METODO NO IMPLEMENTADO  ----------------------
 
 app.use((req, res, next) => {
-	res.status(404).send({
-		error: -2,
-		descripcion: `ruta '${req.path}', método '${req.method}' no implementada.`
-	});
+	// res.status(404).send();
+	res.render('./pages/error', {
+		isAuthenticated: req.isAuthenticated()
+	})
 });

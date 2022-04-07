@@ -2,14 +2,22 @@
     <div class="jumbotron">
         <h1 class="display-4">Ingrese Nuevo Producto</h1>
 
-        <form class="my-4" action="/ejs/productos" method="POST">
+        <form class="my-4" action="/productos/new" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre del Producto</label>
                 <input id="nombre" class="form-control" type="text" name="title" required>
             </div>
             <div class="form-group">
+                <label for="excerpt">Resumen del Producto</label>
+                <textarea id="excerpt" class="form-control" type="text" name="excerpt" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="category">Categoria del Producto</label>
+                <input id="category" class="form-control" type="text" name="category" required>
+            </div>
+            <div class="form-group">
                 <label for="descripcion">Descripción del Producto</label>
-                <input id="descripcion" class="form-control" type="text" name="description" required>
+                <textarea id="descripcion" class="form-control" type="text" name="description" required></textarea>
             </div>
             <div class="form-group">
                 <label for="codigo">Código del Producto</label>
@@ -30,6 +38,6 @@
             <button class="btn btn-success mt-3">Crear</button>
         </form>
 
-        <a href="/ejs/list-productos" type="button" class="btn btn-primary">Ver productos</a>
+        <a href="/productos/list-productos" type="button" class="btn btn-primary">Ver productos</a>
     </div>
 </div>

@@ -55,5 +55,16 @@ module.exports = {
 	HOST: process.env.HOST || 'localhost',
 	PORT: process.env.PORT || 8080,
 	STORAGE: process.env.STORAGE || 'file',
-	MODE: process.env.MODE || 'FORK'
+	MODE: process.env.MODE || 'FORK',
+	// TWILIO
+	TWILIO_SID: process.env.TWILIO_SID,
+	TWILIO_TK: process.env.TWILIO_TK,
+	NUMBER_SMS: process.env.NUMBER_SMS,
+	NUMBER_TO_SMS: process.env.NUMBER_TO_SMS,
+	NUMBER_WA: process.env.NUMBER_WA,
+	NUMBER_TO_WA: process.env.NUMBER_TO_WA,
+	// MAILER
+	MAILER_US: process.env.MAILER_US,
+	MAILER_PW: process.env.MAILER_PW,
+	MAILER_ADMIN: process.env.MAILER_ADMIN,
 }

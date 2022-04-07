@@ -92,7 +92,7 @@ function checkAuthentication(req, res, next) {
 		next()
 	}
 	else {
-		res.redirect('/passport/login')
+		res.redirect('/login')
 	}
 }
 
